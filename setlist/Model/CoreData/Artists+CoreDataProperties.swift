@@ -17,5 +17,6 @@ extension Artists {
     @NSManaged var name: String?
     @NSManaged var mbid: String?
     @NSManaged var image: String?
+    @NSManaged var dateAdd: NSDate?
 
 }

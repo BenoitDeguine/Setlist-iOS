@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "setlist/Controller/ViewController.swift"
-            timestampString = "493675099.309958"
+            filePath = "setlist/Controller/SearchArtistViewController.swift"
+            timestampString = "493676360.672648"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "fetchAndSetResults()"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "addArtist(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

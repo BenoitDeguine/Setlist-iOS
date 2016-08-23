@@ -104,33 +104,53 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-
-        let artist:Artist = self.artistsSearch[indexPath.row]
-       addArtist(artist)
+      self.addArtist(self.artistsSearch[indexPath.row])
     }
     
     //MARK: - Core Data
     func addArtist(myArtist:Artist) {
     
         if (myArtist.mbid != "") {
-            let app = UIApplication.sharedApplication().delegate as! AppDelegate
-            let context = app.managedObjectContext
-            let entity = NSEntityDescription.entityForName("Artists", inManagedObjectContext: context)
             
-            let artist = Artists(entity: entity!, insertIntoManagedObjectContext: context)
-            artist.name = myArtist.name
-            artist.mbid = myArtist.mbid
-            artist.image = "coucou image"
-            
-            context.insertObject(artist)
-            
-            do {
-                try context.save()
-                print("ok")
-                
-            } catch {
-                print("Error d'enregistrement")
+            // On va chercher sur Spotify l'image du groupe
+            var url:String = "https://api.spotify.com/v1/search?q=" +  myArtist.name as String + "&type=artist&limit=1"
+            url = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+            Alamofire.request(.GET, url, parameters: [:])
+                .responseJSON { response in
+                    switch response.result {
+                    case .Success:
+                        print(response)
+                        
+                        let response = response.result.value as! NSDictionary
+                        let res = response.objectForKey("artists")!  as! NSDictionary
+                        let items = res.objectForKey("items")!  as! NSArray
+                        let images = items.firstObject?.objectForKey("images")! as! NSArray
+                        
+                        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+                        let context = app.managedObjectContext
+                        let entity = NSEntityDescription.entityForName("Artists", inManagedObjectContext: context)
+                        
+                        let artist = Artists(entity: entity!, insertIntoManagedObjectContext: context)
+                        artist.name = myArtist.name
+                        artist.mbid = myArtist.mbid
+                        artist.image = images.firstObject?.objectForKey("url") as! String
+                        artist.dateAdd = NSDate()
+                        
+                        context.insertObject(artist)
+                        
+                        do {
+                            try context.save()
+                            print("ok")
+                        } catch {
+                            print("Error d'enregistrement")
+                        }
+                        
+                    case .Failure(let error):
+                        print(error)
+                    }
             }
+            
+            
         }
     
     }
