@@ -104,6 +104,7 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+
         let artist:Artist = self.artistsSearch[indexPath.row]
        addArtist(artist)
     }
