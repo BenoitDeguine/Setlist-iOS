@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import CoreData
 
 class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate {
     
@@ -59,9 +60,7 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
         Alamofire.request(.GET, url, parameters: [:])
             .responseJSON { response in
                 switch response.result {
-                case .Success:
-                    print("Validation Successful")
-                    
+                case .Success:                    
                     let response = response.result.value as! NSDictionary
                     let res = response.objectForKey("artists")!  as! NSArray
                     let nombre:Int = response.objectForKey("count") as! Int
@@ -103,4 +102,36 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
         }
 
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let artist:Artist = self.artistsSearch[indexPath.row]
+       addArtist(artist)
+    }
+    
+    //MARK: - Core Data
+    func addArtist(myArtist:Artist) {
+    
+        if (myArtist.mbid != "") {
+            let app = UIApplication.sharedApplication().delegate as! AppDelegate
+            let context = app.managedObjectContext
+            let entity = NSEntityDescription.entityForName("Artists", inManagedObjectContext: context)
+            
+            let artist = Artists(entity: entity!, insertIntoManagedObjectContext: context)
+            artist.name = myArtist.name
+            artist.mbid = myArtist.mbid
+            artist.image = "coucou image"
+            
+            context.insertObject(artist)
+            
+            do {
+                try context.save()
+                print("ok")
+                
+            } catch {
+                print("Error d'enregistrement")
+            }
+        }
+    
+    }
+    
 }

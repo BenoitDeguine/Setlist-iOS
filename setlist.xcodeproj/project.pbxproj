@@ -7,14 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1419D2151D6CC145005DC62F /* SearchArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1419D2131D6CC145005DC62F /* SearchArtistViewController.swift */; };
+		1419D2161D6CC145005DC62F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1419D2141D6CC145005DC62F /* ViewController.swift */; };
+		1419D2191D6CC182005DC62F /* Artists+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1419D2171D6CC182005DC62F /* Artists+CoreDataProperties.swift */; };
+		1419D21A1D6CC182005DC62F /* Artists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1419D2181D6CC182005DC62F /* Artists.swift */; };
 		146533151D6C5D7F002B4768 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146533141D6C5D7F002B4768 /* AppDelegate.swift */; };
 		1465331A1D6C5D7F002B4768 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 146533181D6C5D7F002B4768 /* Main.storyboard */; };
 		1465331D1D6C5D7F002B4768 /* setlist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1465331B1D6C5D7F002B4768 /* setlist.xcdatamodeld */; };
 		1465331F1D6C5D7F002B4768 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1465331E1D6C5D7F002B4768 /* Assets.xcassets */; };
 		146533221D6C5D7F002B4768 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 146533201D6C5D7F002B4768 /* LaunchScreen.storyboard */; };
-		1465332B1D6C5DE2002B4768 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1465332A1D6C5DE2002B4768 /* ViewController.swift */; };
 		1465332F1D6C62D9002B4768 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1465332E1D6C62D9002B4768 /* Color.swift */; };
-		146533311D6C656B002B4768 /* SearchArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146533301D6C656B002B4768 /* SearchArtistViewController.swift */; };
 		146533331D6C697A002B4768 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146533321D6C697A002B4768 /* NavigationBar.swift */; };
 		146533541D6C835C002B4768 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 146533401D6C82BF002B4768 /* Alamofire.framework */; };
 		146533551D6C835C002B4768 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 146533401D6C82BF002B4768 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -95,6 +97,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1419D2131D6CC145005DC62F /* SearchArtistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchArtistViewController.swift; path = Controller/SearchArtistViewController.swift; sourceTree = "<group>"; };
+		1419D2141D6CC145005DC62F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = Controller/ViewController.swift; sourceTree = "<group>"; };
+		1419D2171D6CC182005DC62F /* Artists+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Artists+CoreDataProperties.swift"; path = "Model/CoreData/Artists+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1419D2181D6CC182005DC62F /* Artists.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Artists.swift; path = Model/CoreData/Artists.swift; sourceTree = "<group>"; };
 		146533111D6C5D7F002B4768 /* setlist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = setlist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		146533141D6C5D7F002B4768 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		146533191D6C5D7F002B4768 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -102,9 +108,7 @@
 		1465331E1D6C5D7F002B4768 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		146533211D6C5D7F002B4768 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		146533231D6C5D7F002B4768 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1465332A1D6C5DE2002B4768 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ViewController/ViewController.swift; sourceTree = "<group>"; };
 		1465332E1D6C62D9002B4768 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Color.swift; path = Extensions/Color.swift; sourceTree = "<group>"; };
-		146533301D6C656B002B4768 /* SearchArtistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchArtistViewController.swift; path = ViewController/SearchArtistViewController.swift; sourceTree = "<group>"; };
 		146533321D6C697A002B4768 /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationBar.swift; path = Extensions/NavigationBar.swift; sourceTree = "<group>"; };
 		146533341D6C82BE002B4768 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "../../../../../Users/Benoit/Downloads/Alamofire-master 2/Alamofire.xcodeproj"; sourceTree = "<group>"; };
 		146533591D6C99B7002B4768 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Artist.swift; path = Model/Artist.swift; sourceTree = "<group>"; };
@@ -122,6 +126,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1419D20A1D6CBFAD005DC62F /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				1419D2171D6CC182005DC62F /* Artists+CoreDataProperties.swift */,
+				1419D2181D6CC182005DC62F /* Artists.swift */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
 		146533081D6C5D7F002B4768 = {
 			isa = PBXGroup;
 			children = (
@@ -145,7 +158,7 @@
 				1465332D1D6C5E14002B4768 /* Extentions */,
 				146533141D6C5D7F002B4768 /* AppDelegate.swift */,
 				1465332C1D6C5DF9002B4768 /* Model */,
-				146533291D6C5DD1002B4768 /* ViewController */,
+				146533291D6C5DD1002B4768 /* Controller */,
 				146533181D6C5D7F002B4768 /* Main.storyboard */,
 				1465331E1D6C5D7F002B4768 /* Assets.xcassets */,
 				146533201D6C5D7F002B4768 /* LaunchScreen.storyboard */,
@@ -155,18 +168,19 @@
 			path = setlist;
 			sourceTree = "<group>";
 		};
-		146533291D6C5DD1002B4768 /* ViewController */ = {
+		146533291D6C5DD1002B4768 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				1465332A1D6C5DE2002B4768 /* ViewController.swift */,
-				146533301D6C656B002B4768 /* SearchArtistViewController.swift */,
+				1419D2131D6CC145005DC62F /* SearchArtistViewController.swift */,
+				1419D2141D6CC145005DC62F /* ViewController.swift */,
 			);
-			name = ViewController;
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		1465332C1D6C5DF9002B4768 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1419D20A1D6CBFAD005DC62F /* CoreData */,
 				146533591D6C99B7002B4768 /* Artist.swift */,
 			);
 			name = Model;
@@ -327,12 +341,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				146533311D6C656B002B4768 /* SearchArtistViewController.swift in Sources */,
-				1465332B1D6C5DE2002B4768 /* ViewController.swift in Sources */,
+				1419D2191D6CC182005DC62F /* Artists+CoreDataProperties.swift in Sources */,
 				1465332F1D6C62D9002B4768 /* Color.swift in Sources */,
+				1419D21A1D6CC182005DC62F /* Artists.swift in Sources */,
+				1419D2161D6CC145005DC62F /* ViewController.swift in Sources */,
 				1465331D1D6C5D7F002B4768 /* setlist.xcdatamodeld in Sources */,
 				146533151D6C5D7F002B4768 /* AppDelegate.swift in Sources */,
 				146533331D6C697A002B4768 /* NavigationBar.swift in Sources */,
+				1419D2151D6CC145005DC62F /* SearchArtistViewController.swift in Sources */,
 				1465335A1D6C99B7002B4768 /* Artist.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
