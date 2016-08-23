@@ -9,10 +9,13 @@
 import UIKit
 import Alamofire
 
-class SearchArtistViewController: UIViewController, UISearchBarDelegate {
-
+class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate {
+    
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var closeButton: UIBarButtonItem!
+    @IBOutlet weak var tableView: UITableView!
+    
+    var artistsSearch = [Artist]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,16 +25,15 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate {
         self.navigationController?.navigationBar.setBottomBorderColor(UIColor().mainColor(), height: 1)
         
         searchBar.translucent = false
-        //searchBar.barTintColor = UIColor().mainColor()
         searchBar.backgroundColor = UIColor().mainColor()
         searchBar.barTintColor = UIColor().mainColor()
-        // Do any additional setup after loading the view.
+        searchBar.userInteractionEnabled = true
         
         self.closeButton.tintColor = UIColor().buttonColor()
         
         self.setFocusOnBar()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -39,7 +41,7 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate {
     
     @IBAction func closeViewController(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: {});
-
+        
     }
     
     func setFocusOnBar() {
@@ -49,38 +51,56 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate {
     
     // MARK: - UISearch
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        print(searchBar.text! as String)
-    
-        var url:String = "https://api.spotify.com/v1/search?q=" +  searchBar.text! as String + "&type=artist&limit=50"
+        searchBar.endEditing(true)
+        
+        var url:String = "http://musicbrainz.org/ws/2/artist/?query=artist:" +  searchBar.text! as String + "&fmt=json"
         url = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
         
-        print(url)
-        Alamofire.request(.GET, url)
+        Alamofire.request(.GET, url, parameters: [:])
             .responseJSON { response in
                 switch response.result {
                 case .Success:
                     print("Validation Successful")
+                    
+                    let response = response.result.value as! NSDictionary
+                    let res = response.objectForKey("artists")!  as! NSArray
+                    let nombre:Int = response.objectForKey("count") as! Int
+                    
+                    self.artistsSearch.removeAll()
+                    
+                    for i in res {
+                        var disambiguation:String = ""
+                        if (i.objectForKey("disambiguation") != nil) {
+                            disambiguation = i.objectForKey("disambiguation") as! String
+                        }
+                        self.artistsSearch.append(Artist(name: i.objectForKey("name") as! String, mbid: i.objectForKey("id") as! String, disambiguation:disambiguation))
+                    }
+                    self.tableView.reloadData()
+                    
                 case .Failure(let error):
                     print(error)
-                }// original URL request
-//                print(response.response) // URL response
-//                print(response.data)     // server data
-//                print(response.result)   // result of response serialization
-//                
-//                if let JSON = response.result.value {
-//                    print("JSON: \(JSON)")
-//                }
+                }
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Mark: - Tableview Protocols
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.artistsSearch.count
     }
-    */
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        if (self.artistsSearch[indexPath.row].disambiguation == "") {
+            let cell:UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
+            cell.textLabel?.text = self.artistsSearch[indexPath.row].name
+            return cell
+        } else {
+            let cell:UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cellWithDisambiguation")! as UITableViewCell
+            cell.textLabel?.text = self.artistsSearch[indexPath.row].name
+            cell.detailTextLabel!.text = self.artistsSearch[indexPath.row].disambiguation
+            
+            return cell
+        }
 
+    }
 }

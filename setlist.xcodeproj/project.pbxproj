@@ -18,6 +18,7 @@
 		146533331D6C697A002B4768 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146533321D6C697A002B4768 /* NavigationBar.swift */; };
 		146533541D6C835C002B4768 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 146533401D6C82BF002B4768 /* Alamofire.framework */; };
 		146533551D6C835C002B4768 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 146533401D6C82BF002B4768 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1465335A1D6C99B7002B4768 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146533591D6C99B7002B4768 /* Artist.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,7 @@
 		146533301D6C656B002B4768 /* SearchArtistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchArtistViewController.swift; path = ViewController/SearchArtistViewController.swift; sourceTree = "<group>"; };
 		146533321D6C697A002B4768 /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationBar.swift; path = Extensions/NavigationBar.swift; sourceTree = "<group>"; };
 		146533341D6C82BE002B4768 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "../../../../../Users/Benoit/Downloads/Alamofire-master 2/Alamofire.xcodeproj"; sourceTree = "<group>"; };
+		146533591D6C99B7002B4768 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Artist.swift; path = Model/Artist.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +167,7 @@
 		1465332C1D6C5DF9002B4768 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				146533591D6C99B7002B4768 /* Artist.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				1465331D1D6C5D7F002B4768 /* setlist.xcdatamodeld in Sources */,
 				146533151D6C5D7F002B4768 /* AppDelegate.swift in Sources */,
 				146533331D6C697A002B4768 /* NavigationBar.swift in Sources */,
+				1465335A1D6C99B7002B4768 /* Artist.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,6 +495,7 @@
 				146533281D6C5D7F002B4768 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
