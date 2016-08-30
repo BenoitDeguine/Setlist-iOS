@@ -7,3 +7,5 @@
 */
 
 "add_artist_to_library" = "Voulez-vous ajouter %@ à vos artistes ?";
+"add_artist_to_library_yes" = "Ajouter";
+"add_artist_to_library_no" = "Non";
