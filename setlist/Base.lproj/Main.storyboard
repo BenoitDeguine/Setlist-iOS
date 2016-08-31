@@ -31,7 +31,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="962" y="499"/>
+            <point key="canvasLocation" x="-501" y="398"/>
         </scene>
         <!--Search Artist View Controller-->
         <scene sceneID="Cm6-ZO-7Nd">
@@ -67,7 +67,7 @@
                                                     <rect key="frame" x="15" y="0.0" width="570" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -84,14 +84,14 @@
                                                     <rect key="frame" x="15" y="5" width="32" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hlS-Jr-5uS">
                                                     <rect key="frame" x="15" y="25" width="41" height="14"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -126,11 +126,126 @@
                         <outlet property="closeButton" destination="j2p-Oc-gUW" id="viP-Bf-bnH"/>
                         <outlet property="searchBar" destination="666-Yj-4mD" id="vwg-GX-4z3"/>
                         <outlet property="tableView" destination="7CN-tZ-bjd" id="DHn-OW-4Tg"/>
+                        <segue destination="PCG-Pc-Clp" kind="presentation" identifier="addArtist" id="VWs-BN-8Mx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7h3-fJ-mQa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2444" y="499"/>
+            <point key="canvasLocation" x="981" y="398"/>
+        </scene>
+        <!--Add Artist View Controller-->
+        <scene sceneID="k1r-Tm-zjn">
+            <objects>
+                <viewController modalPresentationStyle="overCurrentContext" id="PCG-Pc-Clp" customClass="AddArtistViewController" customModule="setlist" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fPF-Tc-99I"/>
+                        <viewControllerLayoutGuide type="bottom" id="zvJ-3d-bTh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kdC-Vu-ztN">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FHj-nA-Z7T">
+                                <rect key="frame" x="150" y="125" width="300" height="350"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0M3-v4-hfT">
+                                        <rect key="frame" x="155" y="300" width="135" height="40"/>
+                                        <color key="backgroundColor" red="1" green="0.47052372069999998" blue="0.55974866990000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="wLs-8r-s7J"/>
+                                            <constraint firstAttribute="width" constant="135" id="ymW-ef-0H1"/>
+                                        </constraints>
+                                        <state key="normal" title="AddButton">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addArtist:" destination="PCG-Pc-Clp" eventType="touchUpInside" id="CG3-xO-Jsx"/>
+                                        </connections>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="s2d-oR-4uM">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="200"/>
+                                        <color key="backgroundColor" red="1" green="0.47052372069999998" blue="0.55974866990000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="200" id="Lmz-xx-ZNE"/>
+                                            <constraint firstAttribute="width" constant="300" id="V2A-Ig-dBm"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imageBand" translatesAutoresizingMaskIntoConstraints="NO" id="i0n-t4-mnk">
+                                        <rect key="frame" x="0.0" y="170" width="300" height="30"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="NOI-gF-Ryh"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcW-G0-Ewx">
+                                        <rect key="frame" x="10" y="300" width="135" height="40"/>
+                                        <color key="backgroundColor" red="1" green="0.47052372069999998" blue="0.55974866990000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="135" id="a8T-I8-vyi"/>
+                                            <constraint firstAttribute="height" constant="40" id="vmg-LV-Bbi"/>
+                                        </constraints>
+                                        <state key="normal" title="CloseButton">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="PgE-Hb-VG1" kind="unwind" unwindAction="unwindFromSecondary:" id="2So-V7-QCc"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nrD-Ey-we8">
+                                        <rect key="frame" x="-5" y="244" width="305" height="48"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="the last shadoiws puppets" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="YvS-8d-oMA">
+                                        <rect key="frame" x="0.0" y="200" width="300" height="46"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="27"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="wcW-G0-Ewx" firstAttribute="top" secondItem="nrD-Ey-we8" secondAttribute="bottom" constant="8" symbolic="YES" id="0Ye-My-br1"/>
+                                    <constraint firstAttribute="width" constant="300" id="6PL-NB-5AU"/>
+                                    <constraint firstAttribute="bottom" secondItem="0M3-v4-hfT" secondAttribute="bottom" constant="10" id="7zP-eO-Lf0"/>
+                                    <constraint firstItem="YvS-8d-oMA" firstAttribute="top" secondItem="i0n-t4-mnk" secondAttribute="bottom" id="81f-Aj-Rj7"/>
+                                    <constraint firstAttribute="trailing" secondItem="0M3-v4-hfT" secondAttribute="trailing" constant="10" id="87A-Hc-2Sv"/>
+                                    <constraint firstItem="s2d-oR-4uM" firstAttribute="leading" secondItem="FHj-nA-Z7T" secondAttribute="leading" id="Ama-Dg-Gov"/>
+                                    <constraint firstAttribute="bottom" secondItem="wcW-G0-Ewx" secondAttribute="bottom" constant="10" id="CJp-20-01x"/>
+                                    <constraint firstItem="YvS-8d-oMA" firstAttribute="leading" secondItem="FHj-nA-Z7T" secondAttribute="leading" id="Cnu-lc-wj5"/>
+                                    <constraint firstItem="i0n-t4-mnk" firstAttribute="width" secondItem="s2d-oR-4uM" secondAttribute="width" id="FFe-bC-nwk"/>
+                                    <constraint firstItem="i0n-t4-mnk" firstAttribute="bottom" secondItem="s2d-oR-4uM" secondAttribute="bottom" id="Jmo-Is-2rr"/>
+                                    <constraint firstItem="nrD-Ey-we8" firstAttribute="trailing" secondItem="YvS-8d-oMA" secondAttribute="trailing" id="L7C-lf-eEm"/>
+                                    <constraint firstItem="nrD-Ey-we8" firstAttribute="top" secondItem="i0n-t4-mnk" secondAttribute="bottom" constant="25" id="Nhh-Qy-XMg"/>
+                                    <constraint firstAttribute="height" constant="350" id="OKM-8J-Mus"/>
+                                    <constraint firstItem="i0n-t4-mnk" firstAttribute="trailing" secondItem="s2d-oR-4uM" secondAttribute="trailing" id="Q7M-oX-MLS"/>
+                                    <constraint firstAttribute="trailing" secondItem="YvS-8d-oMA" secondAttribute="trailing" id="YZv-6g-Tgw"/>
+                                    <constraint firstItem="nrD-Ey-we8" firstAttribute="leading" secondItem="YvS-8d-oMA" secondAttribute="leading" id="d4g-Bg-zgg"/>
+                                    <constraint firstItem="s2d-oR-4uM" firstAttribute="top" secondItem="FHj-nA-Z7T" secondAttribute="top" id="qcd-eA-HGQ"/>
+                                    <constraint firstItem="wcW-G0-Ewx" firstAttribute="leading" secondItem="FHj-nA-Z7T" secondAttribute="leading" constant="10" id="vtJ-do-3gb"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="FHj-nA-Z7T" firstAttribute="centerY" secondItem="kdC-Vu-ztN" secondAttribute="centerY" id="PnT-ra-fTI"/>
+                            <constraint firstItem="FHj-nA-Z7T" firstAttribute="centerX" secondItem="kdC-Vu-ztN" secondAttribute="centerX" id="WZW-e3-ng4"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="addButton" destination="0M3-v4-hfT" id="jTL-SD-QZB"/>
+                        <outlet property="backgroundView" destination="FHj-nA-Z7T" id="xRN-VH-f4q"/>
+                        <outlet property="closeButton" destination="wcW-G0-Ewx" id="oFE-e8-BZZ"/>
+                        <outlet property="imageArtist" destination="s2d-oR-4uM" id="khR-Fm-t6P"/>
+                        <outlet property="textArtist" destination="nrD-Ey-we8" id="9td-pB-MMa"/>
+                        <outlet property="titleArtist" destination="YvS-8d-oMA" id="SMS-26-nYy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UmS-83-5di" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="PgE-Hb-VG1" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1666" y="398"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3Ub-2B-tZ5">
@@ -148,7 +263,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oGN-ol-83K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="276" y="499"/>
+            <point key="canvasLocation" x="-1187" y="398"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ywI-wd-e1z">
@@ -166,7 +281,10 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AtK-3T-qcU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1666" y="499"/>
+            <point key="canvasLocation" x="203" y="398"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="imageBand" width="900" height="200"/>
+    </resources>
 </document>

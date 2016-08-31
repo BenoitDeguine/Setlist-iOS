@@ -8,6 +8,6 @@
 
 //TODO: Faire les traductions
 
-"add_artist_to_library" = "Voulez-vous ajouter %@ à vos artistes ?";
-"add_artist_to_yes" = "Ajouter";
-"add_artist_to_no" = "Non";
+"add_artist_to_library" = "Voulez-vous ajouter à vos artistes ?";
+"add_artist_to_library_yes" = "Add";
+"add_artist_to_library_no" = "Close";

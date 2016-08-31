@@ -8,17 +8,20 @@
 
 import UIKit
 import Alamofire
-import CoreData
 
-class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate {
+class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, Dimmable{
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var closeButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     
+    let dimLevel: CGFloat = 0.5
+    let dimSpeed: Double = 0.5
+    
     var artistsSearch = [Artist]()
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         super.viewDidLoad()
         navigationController!.navigationBar.barTintColor = UIColor().mainColor()
         self.view.backgroundColor = UIColor().backgroundColor()
@@ -33,16 +36,29 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
         self.closeButton.tintColor = UIColor().buttonColor()
         
         self.setFocusOnBar()
+        
+    }
+    override func didReceiveMemoryWarning() { super.didReceiveMemoryWarning() }
+    
+    // MARK: - Segues
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        print(segue.destinationViewController)
+        
+        if (segue.identifier == "addArtist")  {
+            var addArtistSegue:AddArtistViewController = segue.destinationViewController as! AddArtistViewController
+            addArtistSegue.myArtist = sender as! Artist
+            dim(.In, alpha: dimLevel, speed: dimSpeed)
+        }
+     
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func unwindFromSecondary(segue: UIStoryboardSegue) {
+        dim(.Out, speed: dimSpeed)
     }
+    
     
     @IBAction func closeViewController(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: {});
-        
     }
     
     func setFocusOnBar() {
@@ -54,13 +70,14 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         searchBar.endEditing(true)
         
-        var url:String = "http://musicbrainz.org/ws/2/artist/?query=artist:" +  searchBar.text! as String + "&fmt=json"
+        var url:String = "http://musicbrainz.org/ws/2/artist/?query=artist:" +  searchBar.text! as String + "*&fmt=json"
+        print(url)
         url = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
         
         Alamofire.request(.GET, url, parameters: [:])
             .responseJSON { response in
                 switch response.result {
-                case .Success:                    
+                case .Success:
                     let response = response.result.value as! NSDictionary
                     let res = response.objectForKey("artists")!  as! NSArray
                     let nombre:Int = response.objectForKey("count") as! Int
@@ -100,59 +117,13 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
             
             return cell
         }
-
+        
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-      self.addArtist(self.artistsSearch[indexPath.row])
+        // On ouvre le segue
+        self.performSegueWithIdentifier("addArtist", sender: self.artistsSearch[indexPath.row])
     }
     
-    //MARK: - Core Data
-    func addArtist(myArtist:Artist) {
-    
-        if (myArtist.mbid != "") {
-            
-            // On va chercher sur Spotify l'image du groupe
-            var url:String = "https://api.spotify.com/v1/search?q=" +  myArtist.name as String + "&type=artist&limit=1"
-            url = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
-            Alamofire.request(.GET, url, parameters: [:])
-                .responseJSON { response in
-                    switch response.result {
-                    case .Success:
-                        print(response)
-                        
-                        let response = response.result.value as! NSDictionary
-                        let res = response.objectForKey("artists")!  as! NSDictionary
-                        let items = res.objectForKey("items")!  as! NSArray
-                        let images = items.firstObject?.objectForKey("images")! as! NSArray
-                        
-                        let app = UIApplication.sharedApplication().delegate as! AppDelegate
-                        let context = app.managedObjectContext
-                        let entity = NSEntityDescription.entityForName("Artists", inManagedObjectContext: context)
-                        
-                        let artist = Artists(entity: entity!, insertIntoManagedObjectContext: context)
-                        artist.name = myArtist.name
-                        artist.mbid = myArtist.mbid
-                        artist.image = images.firstObject?.objectForKey("url") as! String
-                        artist.dateAdd = NSDate()
-                        
-                        context.insertObject(artist)
-                        
-                        do {
-                            try context.save()
-                            print("ok")
-                        } catch {
-                            print("Error d'enregistrement")
-                        }
-                        
-                    case .Failure(let error):
-                        print(error)
-                    }
-            }
-            
-            
-        }
-    
-    }
     
 }

@@ -16,10 +16,32 @@ class Artist {
     var image:UIImage = UIImage()
     var thumbnails:String = ""
     
+    init() {
+        
+    }
+    
     init(name:String, mbid:String, disambiguation:String) {
         self.name = name
         self.mbid = mbid
         self.disambiguation = disambiguation
+    }
+    
+    func getImage()->UIImage {
+        return UIImage(data: NSData(contentsOfURL: NSURL(string: self.thumbnails)!)!)!
+    }
+    
+    func resizeImageByWidth(sourceImage:UIImage, scaledToWidth: CGFloat) -> UIImage {
+        let oldWidth = sourceImage.size.width
+        let scaleFactor = scaledToWidth / oldWidth
+        
+        let newHeight = sourceImage.size.height * scaleFactor
+        let newWidth = oldWidth * scaleFactor
+        
+        UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
+        sourceImage.drawInRect(CGRectMake(0, 0, newWidth, newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
     }
     
 }
