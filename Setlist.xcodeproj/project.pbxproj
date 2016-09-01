@@ -11,6 +11,7 @@
 		1419D2161D6CC145005DC62F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1419D2141D6CC145005DC62F /* ViewController.swift */; };
 		1419D21A1D6CC182005DC62F /* Artists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1419D2181D6CC182005DC62F /* Artists.swift */; };
 		1419D2271D6CE725005DC62F /* Artists+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1419D2261D6CE725005DC62F /* Artists+CoreDataProperties.swift */; };
+		144B53C71D78270C0054E0C7 /* General.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144B53C61D78270C0054E0C7 /* General.swift */; };
 		145555EE1D75868400377694 /* AddArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145555ED1D75868400377694 /* AddArtistViewController.swift */; };
 		145555F71D7591AF00377694 /* DimBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145555F61D7591AF00377694 /* DimBackground.swift */; };
 		145555FD1D76237C00377694 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 145555FA1D76237C00377694 /* Localizable.strings */; };
@@ -24,6 +25,7 @@
 		146533541D6C835C002B4768 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 146533401D6C82BF002B4768 /* Alamofire.framework */; };
 		146533551D6C835C002B4768 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 146533401D6C82BF002B4768 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1465335A1D6C99B7002B4768 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146533591D6C99B7002B4768 /* Artist.swift */; };
+		14723A7C1D77845400A9BF97 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14723A7B1D77845400A9BF97 /* UIImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +106,7 @@
 		1419D2141D6CC145005DC62F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = Controller/ViewController.swift; sourceTree = "<group>"; };
 		1419D2181D6CC182005DC62F /* Artists.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Artists.swift; path = Model/CoreData/Artists.swift; sourceTree = "<group>"; };
 		1419D2261D6CE725005DC62F /* Artists+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Artists+CoreDataProperties.swift"; path = "Model/CoreData/Artists+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		144B53C61D78270C0054E0C7 /* General.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = General.swift; path = Constant/General.swift; sourceTree = "<group>"; };
 		145555ED1D75868400377694 /* AddArtistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddArtistViewController.swift; path = Controller/AddArtistViewController.swift; sourceTree = "<group>"; };
 		145555F61D7591AF00377694 /* DimBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DimBackground.swift; path = Extensions/DimBackground.swift; sourceTree = "<group>"; };
 		145555FB1D76237C00377694 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = setlist/internationalization/en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -119,6 +122,7 @@
 		146533321D6C697A002B4768 /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationBar.swift; path = Extensions/NavigationBar.swift; sourceTree = "<group>"; };
 		146533341D6C82BE002B4768 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "../../../../../Users/Benoit/Downloads/Alamofire-master 2/Alamofire.xcodeproj"; sourceTree = "<group>"; };
 		146533591D6C99B7002B4768 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Artist.swift; path = Model/Artist.swift; sourceTree = "<group>"; };
+		14723A7B1D77845400A9BF97 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImage.swift; path = Extensions/UIImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +146,14 @@
 			name = CoreData;
 			sourceTree = "<group>";
 		};
+		144B53C51D7826D10054E0C7 /* Constant */ = {
+			isa = PBXGroup;
+			children = (
+				144B53C61D78270C0054E0C7 /* General.swift */,
+			);
+			name = Constant;
+			sourceTree = "<group>";
+		};
 		146533081D6C5D7F002B4768 = {
 			isa = PBXGroup;
 			children = (
@@ -163,7 +175,8 @@
 		146533131D6C5D7F002B4768 /* setlist */ = {
 			isa = PBXGroup;
 			children = (
-				1465332D1D6C5E14002B4768 /* Extentions */,
+				144B53C51D7826D10054E0C7 /* Constant */,
+				1465332D1D6C5E14002B4768 /* Extention */,
 				146533141D6C5D7F002B4768 /* AppDelegate.swift */,
 				1465332C1D6C5DF9002B4768 /* Model */,
 				146533291D6C5DD1002B4768 /* Controller */,
@@ -195,14 +208,15 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		1465332D1D6C5E14002B4768 /* Extentions */ = {
+		1465332D1D6C5E14002B4768 /* Extention */ = {
 			isa = PBXGroup;
 			children = (
 				1465332E1D6C62D9002B4768 /* Color.swift */,
 				146533321D6C697A002B4768 /* NavigationBar.swift */,
 				145555F61D7591AF00377694 /* DimBackground.swift */,
+				14723A7B1D77845400A9BF97 /* UIImage.swift */,
 			);
-			name = Extentions;
+			name = Extention;
 			sourceTree = "<group>";
 		};
 		146533351D6C82BE002B4768 /* Products */ = {
@@ -361,7 +375,9 @@
 				146533151D6C5D7F002B4768 /* AppDelegate.swift in Sources */,
 				146533331D6C697A002B4768 /* NavigationBar.swift in Sources */,
 				1419D2151D6CC145005DC62F /* SearchArtistViewController.swift in Sources */,
+				144B53C71D78270C0054E0C7 /* General.swift in Sources */,
 				145555EE1D75868400377694 /* AddArtistViewController.swift in Sources */,
+				14723A7C1D77845400A9BF97 /* UIImage.swift in Sources */,
 				1419D2271D6CE725005DC62F /* Artists+CoreDataProperties.swift in Sources */,
 				1465335A1D6C99B7002B4768 /* Artist.swift in Sources */,
 			);
