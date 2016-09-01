@@ -8,6 +8,10 @@
 
 import UIKit
 
-class General: NSObject {
-
+struct App {
+    struct File {
+        static let folderName:String = "artists"
+    }
 }
+
+
