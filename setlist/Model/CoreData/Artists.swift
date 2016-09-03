@@ -9,9 +9,6 @@
 import Foundation
 import CoreData
 
-
 class Artists: NSManagedObject {
-
-     
     
 }

@@ -20,7 +20,7 @@ class Artist {
         
     }
     
-    init(name:String, mbid:String, disambiguation:String) {
+    init(name:String, mbid:String, disambiguation:String = "") {
         self.name = name
         self.mbid = mbid
         self.disambiguation = disambiguation

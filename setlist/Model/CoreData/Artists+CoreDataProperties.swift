@@ -17,5 +17,9 @@ extension Artists {
     @NSManaged var dateAdd: NSDate?
     @NSManaged var mbid: String?
     @NSManaged var name: String?
+    
+    func getName()->String {
+        return self.name!
+    }
 
 }
