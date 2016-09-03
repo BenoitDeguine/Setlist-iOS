@@ -9,9 +9,9 @@
 import UIKit
 
 struct App {
+
     struct File {
         static let folderName:String = "artists"
     }
+
 }
-
-

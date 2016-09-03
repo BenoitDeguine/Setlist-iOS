@@ -1,5 +1,5 @@
 //
-//  MyArtistCellCollectionViewCell.swift
+//  ArtistCellCollectionViewCell
 //  Setlist
 //
 //  Created by Benoit Deguine on 01/09/2016.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MyArtistCellCollectionViewCell: UICollectionViewCell {
+class ArtistCellCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var thumbnail:UIImageView!
     @IBOutlet weak var name:UILabel!
