@@ -26,11 +26,11 @@ class AddArtistViewController: UIViewController {
         super.viewDidLoad()
         self.searchArtistImage()
         
-        backgroundView.layer.cornerRadius = 10
-        backgroundView.layer.masksToBounds = false
+        self.backgroundView.layer.cornerRadius = 10
+        self.backgroundView.layer.masksToBounds = false
         
-        imageArtist.layer.cornerRadius = 8
-        imageArtist.layer.masksToBounds = true
+        self.imageArtist.layer.cornerRadius = 8
+        self.imageArtist.layer.masksToBounds = true
         
         // Texte
         self.textArtist.text = String(format: NSLocalizedString("add_artist_to_library", comment: ""), myArtist.name)
@@ -62,7 +62,7 @@ class AddArtistViewController: UIViewController {
         
         if (myArtist.mbid != "") {
             // On va chercher sur Spotify l'image du groupe
-            var url:String = "https://api.spotify.com/v1/search?q=" +  myArtist.name as String + "&type=artist&limit=1"
+            var url:String = App.URL.spotify + "search?q=" +  myArtist.name as String + "&type=artist&limit=1"
             print(url)
             url = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
             Alamofire.request(.GET, url, parameters: [:])
@@ -97,10 +97,11 @@ class AddArtistViewController: UIViewController {
         let context = app.managedObjectContext
         let entity = NSEntityDescription.entityForName("Artists", inManagedObjectContext: context)
         
+        UIImage().saveImageFromUIImage(self.myArtist.mbid, myImageToSave: self.imageArtist.image!)
+        
         let artist = Artists(entity: entity!, insertIntoManagedObjectContext: context)
         artist.name = self.myArtist.name
         artist.mbid = self.myArtist.mbid
-        artist.image = self.myArtist.thumbnails
         artist.dateAdd = NSDate()
         
         context.insertObject(artist)
