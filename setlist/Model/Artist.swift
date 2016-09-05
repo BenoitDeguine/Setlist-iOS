@@ -10,11 +10,10 @@ import UIKit
 
 class Artist {
     
-    var name:String = ""
-    var disambiguation:String = ""
-    var mbid:String = ""
-    var image:UIImage = UIImage()
-    var thumbnails:String = ""
+    var name:String!
+    var disambiguation:String!
+    var mbid:String!
+    var thumbnails:String!
     
     init() {
         
