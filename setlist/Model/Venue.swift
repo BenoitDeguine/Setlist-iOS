@@ -67,7 +67,7 @@ class Venue {
         var venue:String = String()
         
         if (self.name != "") {
-            venue = self.name
+            venue = self.name.capitalizedString
         } else {
             venue = NSLocalizedString("venue_unknown", comment: "")
         }
@@ -83,18 +83,17 @@ class Venue {
             venue = venue + self.cityName
         }
         
-        if (venue != "") {
-            venue = venue + ", "
-        }
-        
         if (self.cityState != "") {
-            venue = venue + self.cityState
             if (venue != "") {
                 venue = venue + ", "
             }
+            venue = venue + self.cityState
         }
         
         if (self.cityCountryName != "") {
+            if (venue != "") {
+                venue = venue + ", "
+            }
             venue = venue + self.cityCountryName
         }
         
