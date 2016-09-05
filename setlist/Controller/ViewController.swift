@@ -24,6 +24,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.collection.dataSource = self
         
         navigationController!.navigationBar.barTintColor = UIColor().mainColor()
+        navigationController?.navigationBar.tintColor = UIColor().mainColor()
         self.view.backgroundColor = UIColor().backgroundColor()
         self.addNewArtist.tintColor = UIColor().buttonColor()
         self.fetchAndSetResults()
@@ -66,6 +67,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let artist = Artist(name: self.artists[indexPath.row].name!, mbid: self.artists[indexPath.row].mbid!)
+        
+        performSegueWithIdentifier("openArtistSetlist", sender: artist)
         
     }
     
@@ -81,6 +85,16 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         var size:CGFloat = ((UIScreen.mainScreen().bounds.width-20)/2)-5
         
         return CGSizeMake(size, size-15)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "openArtistSetlist") {
+            if let detailsVC = segue.destinationViewController as? ArtistEventsViewController {
+                if let artist = sender as? Artist {
+                    detailsVC.artist = artist
+                }
+            }
+        }
     }
 }
 
