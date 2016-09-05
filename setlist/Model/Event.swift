@@ -46,4 +46,8 @@ class Event {
         }
     }
     
+    func getDateMMYYYY()->String {
+        return String(self.date.characters.dropFirst().dropFirst().dropFirst())
+    }
+    
 }
