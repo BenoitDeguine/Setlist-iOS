@@ -26,23 +26,21 @@ extension UIImage {
         let fileManager = NSFileManager.defaultManager()
         let paths = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString).stringByAppendingPathComponent(App.File.folderName + "/" + name + ".jpg")
         return fileManager.createFileAtPath(paths as String, contents: UIImageJPEGRepresentation(myImageToSave, 1), attributes: nil)
-}
-    
-    func getDirectoryPath() -> String {
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        let documentsDirectory = paths[0]
-        return documentsDirectory
     }
     
     func getImageFromName(name:String)->UIImage{
-        let fileManager = NSFileManager.defaultManager()
-        let imagePAth = (self.getDirectoryPath() as NSString).stringByAppendingPathComponent(name)
-        if fileManager.fileExistsAtPath(imagePAth){
-            return UIImage(contentsOfFile: imagePAth)!
+        let documentsPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
+        let logsPath = documentsPath.URLByAppendingPathComponent(App.File.folderName)
+        
+        if (NSFileManager.defaultManager().fileExistsAtPath(logsPath.path!)) {
+            let fileManager = NSFileManager.defaultManager()
+            let paths = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString).stringByAppendingPathComponent(App.File.folderName + "/" + name + ".jpg")
+            
+            return UIImage(contentsOfFile: paths as String)!
         } else {
-            print("No Image")
             return UIImage()
         }
+        
     }
     
 }
