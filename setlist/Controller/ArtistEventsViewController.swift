@@ -14,6 +14,7 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
     var artist:Artist!
     var events = [Event]()
     var totalEvents:Int = 0
+
     
     @IBOutlet weak var artistEvents: UITableView!
     
@@ -26,8 +27,9 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
         self.view.backgroundColor = UIColor().backgroundColor()
         self.navigationController!.navigationBar.tintColor = UIColor.whiteColor()
         
-        var url:String = App.URL.setlistfm + "artist/" +  artist.mbid + "/setlists.json"
-        print(url)
+        print(User.language)
+        
+        var url:String = App.URL.setlistfm + "artist/" +  artist.mbid + "/setlists.json&l=" + User.language 
         url = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
         
         Alamofire.request(.GET, url, parameters: [:])
