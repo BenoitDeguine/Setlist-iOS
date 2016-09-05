@@ -34,20 +34,20 @@ class Event {
             
             if (sets.objectForKey("set")!.isKindOfClass(NSArray)) {
                 let set = sets.objectForKey("set")! as! NSArray
-                print("23")
             } else {
-                
-                print(sets)
                 let set = sets.objectForKey("set")! as! NSDictionary
                 self.sets.append(Set(value:set))
-                
-                print("22")
             }
         }
     }
     
     func getDateMMYYYY()->String {
         return String(self.date.characters.dropFirst().dropFirst().dropFirst())
+    }
+    
+    func getDateDD()->String {
+        // truncate : on retire les 8 derniers chiffres
+        return self.date.substringToIndex(self.date.endIndex.advancedBy(-8))
     }
     
 }
