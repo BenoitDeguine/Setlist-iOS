@@ -29,7 +29,19 @@ class Venue {
         
         // City
         let city:NSDictionary = value.objectForKey("city")! as! NSDictionary
-        self.cityName = city.objectForKey("@name") as! String
+        
+        if (city.objectForKey("@name") != nil) {
+            
+            // En version FR, setlist FM traduit Paris par Paname
+            if (city.objectForKey("@name")?.lowercaseString == "paname") {
+                self.cityName = "Paris"
+            } else {
+                self.cityName = city.objectForKey("@name") as! String
+            }
+            
+        }
+        
+        
         if city.objectForKey("@state") != nil {
             self.cityState = city.objectForKey("@state") as! String
         } else {
@@ -77,6 +89,13 @@ class Venue {
         
         if (self.cityState != "") {
             venue = venue + self.cityState
+            if (venue != "") {
+                venue = venue + ", "
+            }
+        }
+        
+        if (self.cityCountryName != "") {
+            venue = venue + self.cityCountryName
         }
         
         return venue
