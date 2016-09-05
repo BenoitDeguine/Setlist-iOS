@@ -35,15 +35,50 @@ class Venue {
         } else {
             self.cityState = ""
         }
-        self.cityStateCode = city.objectForKey("@stateCode") as! String
+        if city.objectForKey("@state") != nil {
+            self.cityStateCode = city.objectForKey("@stateCode") as! String
+        } else {
+            self.cityStateCode = ""
+        }
         
         // Country
         let country:NSDictionary = city.objectForKey("country")! as! NSDictionary
         self.cityCountryName = country.objectForKey("@name")! as! String
         
         // Coords
-        let coords:NSDictionary = city.objectForKey("coords")! as! NSDictionary        
+        let coords:NSDictionary = city.objectForKey("coords")! as! NSDictionary
         self.cityCoords = Coordinates(Latitude: coords.objectForKey("@lat")! as! String, Longitude: coords.objectForKey("@long")! as! String)
         
+    }
+    
+    func getVenueName()->String {
+        var venue:String = String()
+        
+        if (self.name != "") {
+            venue = self.name
+        } else {
+            venue = NSLocalizedString("venue_unknown", comment: "")
+        }
+        
+        return venue
+    }
+    
+    func getVenueAddress()->String {
+        
+        var venue:String = String()
+        
+        if (self.cityName != "") {
+            venue = venue + self.cityName
+        }
+        
+        if (venue != "") {
+            venue = venue + ", "
+        }
+        
+        if (self.cityState != "") {
+            venue = venue + self.cityState
+        }
+        
+        return venue
     }
 }
