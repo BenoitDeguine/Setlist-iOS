@@ -12,9 +12,13 @@ import Alamofire
 class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var artist:Artist!
-    var events = [Event]()
+    var events = Array<Array<Event>>()
+    var eventsSection = [String]()
     var totalEvents:Int = 0
-
+    var pageNumber:Int = 1
+    
+    var tableviewScrollToBottom:Bool = true
+    var lastContentOffset:CGFloat = CGFloat()
     
     @IBOutlet weak var artistEvents: UITableView!
     
@@ -27,9 +31,8 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
         self.view.backgroundColor = UIColor().backgroundColor()
         self.navigationController!.navigationBar.tintColor = UIColor.whiteColor()
         
-        print(User.language)
-        
-        var url:String = App.URL.setlistfm + "artist/" +  artist.mbid + "/setlists.json&l=" + User.language 
+        var url:String = App.URL.setlistfm + "artist/" +  artist.mbid + "/setlists.json?&l=" + User.language + "&p=" + String(pageNumber)
+        print(url)
         url = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
         
         Alamofire.request(.GET, url, parameters: [:])
@@ -41,14 +44,14 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
                     self.totalEvents = Int(res.objectForKey("@total") as! String)!
                     
                     let setlists = res.objectForKey("setlist") as! NSArray
-                    print(setlists.count)
                     
                     if (setlists.count > 0) {
                         for i in setlists {
-                            self.events.append(Event(value: i as! NSDictionary))
+                            var event:Event = Event(value: i as! NSDictionary)
+                            let res:Int = self.addInSection(event.getDateMMYYYY())
+                            self.events[res].append(event)
                         }
                     }
-                    
                     self.artistEvents.reloadData()
                     
                 case .Failure(let error):
@@ -62,26 +65,45 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
         // Dispose of any resources that can be recreated.
     }
     
+    
     // Mark: - Tableview Protocols
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      print(self.events.count)
-        return self.events.count
+        return self.events[section].count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-
-            let cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("artistEventCell")! as! ArtistEventsCell
-        print(self.events[indexPath.row].venue.name)
-            cell.textLabel?.text = self.events[indexPath.row].date
-            cell.detailTextLabel!.text = self.events[indexPath.row].venue.name + ", " + self.events[indexPath.row].venue.cityName
- 
+        
+        let cell:ArtistEventsCell = tableView.dequeueReusableCellWithIdentifier("artistEventCell")! as! ArtistEventsCell
+        
+        cell.dayLabel.text = self.events[indexPath.section][indexPath.row].getDateDD()
+        cell.titleLabel.text = self.events[indexPath.section][indexPath.row].venue.getVenueName()
+        cell.addressLabel.text = self.events[indexPath.section][indexPath.row].venue.getVenueAddress()
+        
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        // On ouvre le segue
-     //   self.performSegueWithIdentifier("addArtist", sender: self.artistsSearch[indexPath.row])
+    }
+    
+    // MARK: - Table view section
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.eventsSection[section]
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return self.eventsSection.count
     }
 
 
+    
+    // Mark: - Array
+    func addInSection(text:String)->Int {
+        if (!self.eventsSection.contains(text)) {
+            self.eventsSection.append(text)
+            self.events.append([])
+        }
+        return self.eventsSection.indexOf(text)!
+    }
+    
 }
