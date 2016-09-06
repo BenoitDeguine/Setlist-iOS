@@ -94,7 +94,67 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return self.eventsSection.count
     }
-
+    
+    // Mark: - Effect sur la tableview lors du scrol
+    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if (self.lastContentOffset != 0) {
+            view.alpha = 0
+            
+            var valueEffect:CGFloat = 0
+            
+            if (self.tableviewScrollToBottom) {
+                valueEffect = 250
+            } else {
+                valueEffect = -250
+            }
+            
+            let transform = CATransform3DTranslate(CATransform3DIdentity, 0, valueEffect, 0)
+            view.layer.transform = transform
+            
+            UIView.animateWithDuration(0.5) {
+                view.alpha = 1.0
+                view.layer.transform = CATransform3DIdentity
+            }
+        }
+    }
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (self.lastContentOffset != 0) {
+            cell.alpha = 0
+            
+            var valueEffect:CGFloat = 0
+            
+            if (self.tableviewScrollToBottom) {
+                valueEffect = 250
+            } else {
+                valueEffect = -250
+            }
+            
+            let transform = CATransform3DTranslate(CATransform3DIdentity, 0, valueEffect, 0)
+            cell.layer.transform = transform
+            
+            UIView.animateWithDuration(0.5) {
+                cell.alpha = 1.0
+                cell.layer.transform = CATransform3DIdentity
+            }
+        }
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        
+        var currentOffset = scrollView.contentOffset
+        
+        if (currentOffset.y > self.lastContentOffset) {
+            if (!self.tableviewScrollToBottom) {
+                self.tableviewScrollToBottom = true
+            }
+        } else {
+            if (self.tableviewScrollToBottom) {
+                self.tableviewScrollToBottom = false
+            }
+        }
+        self.lastContentOffset = currentOffset.y
+    }
 
     
     // Mark: - Array
