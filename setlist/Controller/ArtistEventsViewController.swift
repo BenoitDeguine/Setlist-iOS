@@ -15,22 +15,39 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
     var events = Array<Array<Event>>()
     var eventsSection = [String]()
     var totalEvents:Int = 0
-    var pageNumber:Int = 1
+    var pageNumber:Int = 0
+    var searchNewSetlist:Bool = false
     
     var tableviewScrollToBottom:Bool = true
     var lastContentOffset:CGFloat = CGFloat()
+    
+    var tableViewEffetInsertRow:Bool = false
     
     @IBOutlet weak var artistEvents: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         self.artistEvents.delegate = self
         self.artistEvents.dataSource = self
+        
+        self.navigationController?.navigationBar.setBottomBorderColor(UIColor().mainColor(), height: 1)
         
         self.view.backgroundColor = UIColor().backgroundColor()
         self.navigationController!.navigationBar.tintColor = UIColor.whiteColor()
         
+        self.searchSetlist()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // API SetlistFM
+    
+    func searchSetlist() {
+        self.pageNumber = self.pageNumber + 1
         var url:String = App.URL.setlistfm + "artist/" +  artist.mbid + "/setlists.json?&l=" + User.language + "&p=" + String(pageNumber)
         print(url)
         url = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
@@ -52,20 +69,19 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
                             self.events[res].append(event)
                         }
                     }
-                    self.artistEvents.reloadData()
+                    // Pour savoir si on joue l'effet sur les cell
+                    self.tableViewEffetInsertRow = false
+                    self.artistEvents.reloadData({ 
+                        self.tableViewEffetInsertRow = true
+                    })
+                    
                     
                 case .Failure(let error):
                     print(error)
                 }
         }
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
+
     // Mark: - Tableview Protocols
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.events[section].count
@@ -83,10 +99,15 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+       print("---------")
+        var event:Event = self.events[indexPath.section][indexPath.row]
+        print(event.venue.name)
+        print(event.sets.count)
+        print(event.sets.first?.song)
+        print(event.sets.first?.song.first?.name)
     }
     
     // MARK: - Table view section
-    
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.eventsSection[section]
     }
@@ -95,9 +116,9 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
         return self.eventsSection.count
     }
     
-    // Mark: - Effect sur la tableview lors du scrol
+    // Mark: - Effect sur la tableview lors du scroll
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        if (self.lastContentOffset != 0) {
+      if (self.lastContentOffset != 0  && tableViewEffetInsertRow) {
             view.alpha = 0
             
             var valueEffect:CGFloat = 0
@@ -119,7 +140,7 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if (self.lastContentOffset != 0) {
+        if (self.lastContentOffset != 0 && tableViewEffetInsertRow) {
             cell.alpha = 0
             
             var valueEffect:CGFloat = 0
@@ -138,10 +159,12 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
                 cell.layer.transform = CATransform3DIdentity
             }
         }
+      
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         
+        // Savoir si l'utilisater scroll vers le bas ou vers le haut
         var currentOffset = scrollView.contentOffset
         
         if (currentOffset.y > self.lastContentOffset) {
@@ -154,8 +177,36 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
             }
         }
         self.lastContentOffset = currentOffset.y
+        
+        // Infinite scroll
+        let currentOffsetScroll = scrollView.contentOffset.y
+        let maximumOffsetScroll = scrollView.contentSize.height - scrollView.frame.size.height
+
+        if (maximumOffsetScroll - currentOffsetScroll) <= 100 {
+            if (!self.searchNewSetlist) {
+                self.searchSetlist()
+                self.searchNewSetlist = true
+            }
+        } else {
+            self.searchNewSetlist = false
+
+        }
     }
 
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+         let cell = tableView.dequeueReusableCellWithIdentifier("SectionTableViewHeader") as! SectionTableViewHeader
+        cell.backgroundColor = UIColor().maColor()
+        cell.title.textColor = UIColor().buttonColor()
+
+        var fullDate = self.eventsSection[section].characters.split{$0 == "-"}.map(String.init)
+        cell.title.text = String(stringInterpolation: NSDate().getDateFromNumber(fullDate[0]), " ", fullDate[1])
+        
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 35
+    }
     
     // Mark: - Array
     func addInSection(text:String)->Int {
@@ -164,6 +215,17 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
             self.events.append([])
         }
         return self.eventsSection.indexOf(text)!
+    }
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "openSetlist") {
+            if let detailsVC = segue.destinationViewController as? ArtistEventsViewController {
+                if let artist = sender as? Artist {
+                    detailsVC.artist = artist
+                }
+            }
+        }
     }
     
 }
