@@ -26,7 +26,7 @@ class Artist {
     }
     
     func getImage()->UIImage {
-        return UIImage(data: NSData(contentsOfURL: NSURL(string: self.thumbnails)!)!)!
+        return UIImage(data: try! Data(contentsOf: URL(string: self.thumbnails)!))!
     }
     
 }

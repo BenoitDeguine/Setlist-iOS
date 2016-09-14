@@ -20,12 +20,12 @@ class ShowSetlistViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(patternImage: self.imageBackground)
-        self.imageClose.tintColor = UIColor.whiteColor()
+        self.imageClose.tintColor = UIColor.white
         
         // Pour fermer la fenêtre lors d'un clic sur la fenêtre
         let tap = UITapGestureRecognizer(target: self, action: #selector(ShowSetlistViewController.closeWindows))
         imageClose.addGestureRecognizer(tap)
-        imageClose.userInteractionEnabled = true
+        imageClose.isUserInteractionEnabled = true
         
         self.tableViewSetlist.rowHeight = UITableViewAutomaticDimension
         self.tableViewSetlist.estimatedRowHeight = 55.0
@@ -36,64 +36,64 @@ class ShowSetlistViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     // Mark: - Tableview Protocols
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.event.sets[section].song.count
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return self.event.sets.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if (self.event.sets[indexPath.section].song[indexPath.row].isTape == true) {
+        if (self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].isTape == true) {
             
-            if (self.event.sets[indexPath.section].song[indexPath.row].artistName == nil && self.event.sets[indexPath.section].song[indexPath.row].info == nil) {
-                let cell = tableView.dequeueReusableCellWithIdentifier("setlistCellTapeWithoutInfo")! as! SetlistCellTapeWithoutInfo
-                cell.title.text = self.event.sets[indexPath.section].song[indexPath.row].name as String
+            if (self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].artistName == nil && self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].info == nil) {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "setlistCellTapeWithoutInfo")! as! SetlistCellTapeWithoutInfo
+                cell.title.text = self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].name as String
                 
-                print(self.event.sets[indexPath.section].song[indexPath.row].name)
+                print(self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].name)
                 
                 return cell
             } else {
-                let cell = tableView.dequeueReusableCellWithIdentifier("setlistCellTape")! as! SetlistCellTape
-                cell.title.text = self.event.sets[indexPath.section].song[indexPath.row].name as String
+                let cell = tableView.dequeueReusableCell(withIdentifier: "setlistCellTape")! as! SetlistCellTape
+                cell.title.text = self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].name as String
                 
-                if (self.event.sets[indexPath.section].song[indexPath.row].artistName != nil) {
-                    cell.info.text = self.event.sets[indexPath.section].song[indexPath.row].artistName as String
-                } else if (self.event.sets[indexPath.section].song[indexPath.row].info != "") {
-                    cell.info.text = self.event.sets[indexPath.section].song[indexPath.row].info
+                if (self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].artistName != nil) {
+                    cell.info.text = self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].artistName as String
+                } else if (self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].info != "") {
+                    cell.info.text = self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].info
                 }
                 return cell
             }
             
-        }  else if (self.event.sets[indexPath.section].song[indexPath.row].isCover == true) {
-            let cell:SetlistCellWithInfo = tableView.dequeueReusableCellWithIdentifier("setlistCellWithInfo")! as! SetlistCellWithInfo
-            cell.title.text = self.event.sets[indexPath.section].song[indexPath.row].name as String
+        }  else if (self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].isCover == true) {
+            let cell:SetlistCellWithInfo = tableView.dequeueReusableCell(withIdentifier: "setlistCellWithInfo")! as! SetlistCellWithInfo
+            cell.title.text = self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].name as String
             
-            print(self.event.sets[indexPath.section].song[indexPath.row].artistName)
-            cell.info.text = self.event.sets[indexPath.section].song[indexPath.row].artistName + " Cover"
+            print(self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].artistName)
+            cell.info.text = self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].artistName + " Cover"
             
             return cell
-        } else if (self.event.sets[indexPath.section].song[indexPath.row].info == nil) {
-            let cell:SetlistCell = tableView.dequeueReusableCellWithIdentifier("setlistCell")! as! SetlistCell
-            cell.title.text = self.event.sets[indexPath.section].song[indexPath.row].name as String
+        } else if (self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].info == nil) {
+            let cell:SetlistCell = tableView.dequeueReusableCell(withIdentifier: "setlistCell")! as! SetlistCell
+            cell.title.text = self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].name as String
             
             return cell
         } else {
-            let cell:SetlistCellWithInfo = tableView.dequeueReusableCellWithIdentifier("setlistCellWithInfo")! as! SetlistCellWithInfo
-            cell.title.text = self.event.sets[indexPath.section].song[indexPath.row].name as String
-            cell.info.text = self.event.sets[indexPath.section].song[indexPath.row].info as String
+            let cell:SetlistCellWithInfo = tableView.dequeueReusableCell(withIdentifier: "setlistCellWithInfo")! as! SetlistCellWithInfo
+            cell.title.text = self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].name as String
+            cell.info.text = self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].info as String
             
             return cell
         }
         
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("headerSection") as! SetlistHeaderSectionTableViewCell
-        cell.backgroundColor = UIColor.clearColor()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "headerSection") as! SetlistHeaderSectionTableViewCell
+        cell.backgroundColor = UIColor.clear
         cell.title.textColor = UIColor().buttonColor()
         
         // S'il y a plusieurs Encore, on affichera "Encore 1", "encore 2", ...
@@ -108,7 +108,7 @@ class ShowSetlistViewController: UIViewController, UITableViewDelegate, UITableV
         return cell
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if (self.event.sets[section].name == "") {
             return 15
         } else {
@@ -117,16 +117,16 @@ class ShowSetlistViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     // Effect cell
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.alpha = 0
         
-        UIView.animateWithDuration(0.75) {
+        UIView.animate(withDuration: 0.75, animations: {
             cell.alpha = 1.0
-        }
+        }) 
     }
     
     func closeWindows() {
-        self.dismissViewControllerAnimated(true, completion: {});
+        self.dismiss(animated: true, completion: {});
     }
     
 }

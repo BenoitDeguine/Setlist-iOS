@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, Dimmable{
+class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var closeButton: UIBarButtonItem!
@@ -27,38 +27,34 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
         self.view.backgroundColor = UIColor().backgroundColor()
         
         self.navigationController?.navigationBar.setBottomBorderColor(UIColor().mainColor(), height: 1)
+       
+        self.searchBar.layer.borderWidth = 1
+        self.searchBar.layer.borderColor = UIColor().mainColor().cgColor
         
-        searchBar.translucent = false
+        searchBar.isTranslucent = false
         searchBar.backgroundColor = UIColor().mainColor()
         searchBar.barTintColor = UIColor().mainColor()
-        searchBar.userInteractionEnabled = true
+        searchBar.isUserInteractionEnabled = true
         
         self.closeButton.tintColor = UIColor().buttonColor()
         
         self.setFocusOnBar()
-        
     }
-    override func didReceiveMemoryWarning() { super.didReceiveMemoryWarning() }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
     
     // MARK: - Segues
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        print(segue.destinationViewController)
-        
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "addArtist")  {
-            var addArtistSegue:AddArtistViewController = segue.destinationViewController as! AddArtistViewController
+            let addArtistSegue:AddArtistViewController = segue.destination as! AddArtistViewController
             addArtistSegue.myArtist = sender as! Artist
-            dim(.In, alpha: dimLevel, speed: dimSpeed)
         }
-     
     }
     
-    @IBAction func unwindFromSecondary(segue: UIStoryboardSegue) {
-        dim(.Out, speed: dimSpeed)
-    }
-    
-    
-    @IBAction func closeViewController(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: {});
+    @IBAction func closeViewController(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: {});
     }
     
     func setFocusOnBar() {
@@ -67,63 +63,58 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
     
     
     // MARK: - UISearch
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
         
-        var url:String = "http://musicbrainz.org/ws/2/artist/?query=artist:" +  searchBar.text! as String + "*&fmt=json"
+        var url:String = App.URL.musicbrainz + "artist/?query=artist:" +  (searchBar.text?.trim())! as String + "*&fmt=json"
         print(url)
-        url = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+        url = url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         
-        Alamofire.request(.GET, url, parameters: [:])
-            .responseJSON { response in
+        Alamofire.request(url, method: .get).responseJSON { response in
                 switch response.result {
-                case .Success:
+                case .success:
                     let response = response.result.value as! NSDictionary
-                    let res = response.objectForKey("artists")!  as! NSArray
-                    let nombre:Int = response.objectForKey("count") as! Int
+                    let res = response.object(forKey: "artists")!  as! NSArray
+                    let nombre:Int = response.object(forKey: "count") as! Int
                     
                     self.artistsSearch.removeAll()
                     
                     for i in res {
                         var disambiguation:String = ""
-                        if (i.objectForKey("disambiguation") != nil) {
-                            disambiguation = i.objectForKey("disambiguation") as! String
+                        if ((i as! NSDictionary).object(forKey: "disambiguation") != nil) {
+                            disambiguation = (i as! NSDictionary).object(forKey: "disambiguation") as! String
                         }
-                        self.artistsSearch.append(Artist(name: i.objectForKey("name") as! String, mbid: i.objectForKey("id") as! String, disambiguation:disambiguation))
+                        self.artistsSearch.append(Artist(name: (i as! NSDictionary).object(forKey: "name") as! String, mbid: (i as! NSDictionary).object(forKey: "id") as! String, disambiguation:disambiguation))
                     }
                     self.tableView.reloadData()
                     
-                case .Failure(let error):
+                case .failure(let error):
                     print(error)
                 }
         }
     }
     
     // Mark: - Tableview Protocols
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.artistsSearch.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        if (self.artistsSearch[indexPath.row].disambiguation == "") {
-            let cell:UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
-            cell.textLabel?.text = self.artistsSearch[indexPath.row].name
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (self.artistsSearch[(indexPath as NSIndexPath).row].disambiguation == "") {
+            let cell:UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "cell")! as UITableViewCell
+            cell.textLabel?.text = self.artistsSearch[(indexPath as NSIndexPath).row].name
             return cell
         } else {
-            let cell:UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cellWithDisambiguation")! as UITableViewCell
-            cell.textLabel?.text = self.artistsSearch[indexPath.row].name
-            cell.detailTextLabel!.text = self.artistsSearch[indexPath.row].disambiguation
+            let cell:UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "cellWithDisambiguation")! as UITableViewCell
+            cell.textLabel?.text = self.artistsSearch[(indexPath as NSIndexPath).row].name
+            cell.detailTextLabel!.text = self.artistsSearch[(indexPath as NSIndexPath).row].disambiguation
             
             return cell
         }
-        
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        // On ouvre le segue
-        self.performSegueWithIdentifier("addArtist", sender: self.artistsSearch[indexPath.row])
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "addArtist", sender: self.artistsSearch[(indexPath as NSIndexPath).row])
     }
-    
     
 }

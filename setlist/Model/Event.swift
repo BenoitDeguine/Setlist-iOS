@@ -20,27 +20,29 @@ class Event {
     
     init(value:NSDictionary) {
         
-        self.id = value.objectForKey("@id")! as! String
-        self.date = value.objectForKey("@eventDate")! as! String
-        self.lastUpdated = value.objectForKey("@lastUpdated")! as! String
-        if value.objectForKey("@tour") != nil {
-            self.tour = value.objectForKey("@tour")! as! String
-        }
-        self.versionId = value.objectForKey("@versionId")! as! String
-        self.venue = Venue(value: value.objectForKey("venue")! as! NSDictionary)
+        print(value)
         
-        if value.objectForKey("sets") != nil && (value.objectForKey("sets")!.isKindOfClass(NSArray) || (value.objectForKey("sets")!.isKindOfClass(NSDictionary))) {
-            let sets = value.objectForKey("sets")! as! NSDictionary
+        self.id = value.object(forKey: "@id")! as! String
+        self.date = value.object(forKey: "@eventDate")! as! String
+        self.lastUpdated = value.object(forKey: "@lastUpdated")! as! String
+        if value.object(forKey: "@tour") != nil {
+            self.tour = value.object(forKey: "@tour")! as! String
+        }
+        self.versionId = value.object(forKey: "@versionId")! as! String
+        self.venue = Venue(value: value.object(forKey: "venue")! as! NSDictionary)
+        
+        if value.object(forKey: "sets") != nil && ((value.object(forKey: "sets")! as! NSObject) is NSArray) || ((value.object(forKey: "sets")! as! NSObject) is NSDictionary) {
+            let sets = value.object(forKey: "sets")! as! NSDictionary
             
-            if (sets.objectForKey("set")!.isKindOfClass(NSArray)) {
-                let set = sets.objectForKey("set")! as! NSArray
+            if ((sets.object(forKey: "set")! as! NSObject) is NSArray) {
+                let set = sets.object(forKey: "set")! as! NSArray
                 
                 for i in set {
                     self.sets.append(Set(value:i as! NSDictionary))
                 }
 
             } else {
-                let set = sets.objectForKey("set")! as! NSDictionary
+                let set = sets.object(forKey: "set")! as! NSDictionary
                 self.sets.append(Set(value:set))
             }
         }
@@ -52,7 +54,7 @@ class Event {
     
     func getDateDD()->String {
         // truncate : on retire les 8 derniers chiffres
-        return self.date.substringToIndex(self.date.endIndex.advancedBy(-8))
+        return self.date.substring(to: self.date.index(self.date.endIndex, offsetBy: -8))
     }
     
 }

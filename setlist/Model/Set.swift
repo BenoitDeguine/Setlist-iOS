@@ -16,22 +16,22 @@ class Set {
     
     init(value:NSDictionary) {
 
-        if value.objectForKey("@name") != nil {
-            self.name = value.objectForKey("@name") as! String
+        if value.object(forKey: "@name") != nil {
+            self.name = value.object(forKey: "@name") as! String
         } else {
             self.name = ""
         }
         
         // Si le set est un "Encore"
-        if value.objectForKey("@encore") != nil {
+        if value.object(forKey: "@encore") != nil {
             self.isEncore = true
-            self.name = value.objectForKey("@encore") as! String
+            self.name = value.object(forKey: "@encore") as! String
         } else {
             self.isEncore = false
         }
         
-        if (value.objectForKey("song")!.isKindOfClass(NSArray)) {
-            let songsSet = value.objectForKey("song") as! NSArray
+        if ( (value.object(forKey: "song")! as! NSObject) is NSArray ) {
+            let songsSet = value.object(forKey: "song") as! NSArray
             
             if (songsSet.count > 0 ) {
                 for i in songsSet {
@@ -39,7 +39,7 @@ class Set {
                 }
             }
         } else {
-            self.song.append(Song(value: value.objectForKey("song") as! NSDictionary))
+            self.song.append(Song(value: value.object(forKey: "song") as! NSDictionary))
         }
     }
     

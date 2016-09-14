@@ -24,42 +24,42 @@ class Venue {
     var cityCoords:Coordinates
     
     init(value:NSDictionary){
-        self.id = value.objectForKey("@id")! as! String
-        self.name = value.objectForKey("@name")! as! String
+        self.id = value.object(forKey: "@id")! as! String
+        self.name = value.object(forKey: "@name")! as! String
         
         // City
-        let city:NSDictionary = value.objectForKey("city")! as! NSDictionary
+        let city:NSDictionary = value.object(forKey: "city")! as! NSDictionary
         
-        if (city.objectForKey("@name") != nil) {
+        if (city.object(forKey: "@name") != nil) {
+            
+            print(city)
             
             // En version FR, setlist FM traduit Paris par Paname
-            if (city.objectForKey("@name")?.lowercaseString == "paname") {
+            if ((city.object(forKey: "@name") as! String).lowercased() == "paname") {
                 self.cityName = "Paris"
             } else {
-                self.cityName = city.objectForKey("@name") as! String
+                self.cityName = city.object(forKey: "@name") as! String
             }
-            
         }
         
-        
-        if city.objectForKey("@state") != nil {
-            self.cityState = city.objectForKey("@state") as! String
+        if city.object(forKey: "@state") != nil {
+            self.cityState = city.object(forKey: "@state") as! String
         } else {
             self.cityState = ""
         }
-        if city.objectForKey("@state") != nil {
-            self.cityStateCode = city.objectForKey("@stateCode") as! String
+        if city.object(forKey: "@state") != nil {
+            self.cityStateCode = city.object(forKey: "@stateCode") as! String
         } else {
             self.cityStateCode = ""
         }
         
         // Country
-        let country:NSDictionary = city.objectForKey("country")! as! NSDictionary
-        self.cityCountryName = country.objectForKey("@name")! as! String
+        let country:NSDictionary = city.object(forKey: "country")! as! NSDictionary
+        self.cityCountryName = country.object(forKey: "@name")! as! String
         
         // Coords
-        let coords:NSDictionary = city.objectForKey("coords")! as! NSDictionary
-        self.cityCoords = Coordinates(Latitude: coords.objectForKey("@lat")! as! String, Longitude: coords.objectForKey("@long")! as! String)
+        let coords:NSDictionary = city.object(forKey: "coords")! as! NSDictionary
+        self.cityCoords = Coordinates(Latitude: coords.object(forKey: "@lat")! as! String, Longitude: coords.object(forKey: "@long")! as! String)
         
     }
     
@@ -67,7 +67,7 @@ class Venue {
         var venue:String = String()
         
         if (self.name != "") {
-            venue = self.name.capitalizedString
+            venue = self.name.capitalized
         } else {
             venue = NSLocalizedString("venue_unknown", comment: "")
         }

@@ -8,14 +8,14 @@
 
 import UIKit
 
-extension NSDate {
+extension Date {
     
-    func getDateFromNumber(month:String)->String {
+    func getDateFromNumber(_ month:String)->String {
         
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         
         let months = dateFormatter.monthSymbols
-        return months[Int(month)!-1].capitalizedString
+        return months![Int(month)!-1].capitalized
     }
     
 }

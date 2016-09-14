@@ -19,35 +19,35 @@ class Song {
     init(value:NSDictionary) {
         print(value)
         
-        if value.objectForKey("@name") != nil {
-            self.name = value.objectForKey("@name") as! String
+        if value.object(forKey: "@name") != nil {
+            self.name = value.object(forKey: "@name") as! String
         } else {
             self.name = ""
         }
         
-        if value.objectForKey("info") != nil {
-            self.info = value.objectForKey("info") as! String
+        if value.object(forKey: "info") != nil {
+            self.info = value.object(forKey: "info") as! String
         }
         
-        if value.objectForKey("cover") != nil {
+        if value.object(forKey: "cover") != nil {
             self.isCover = true
-            let cover = value.objectForKey("cover") as! NSDictionary
+            let cover = value.object(forKey: "cover") as! NSDictionary
             
-            if (cover.objectForKey("@name") != nil) {
-                self.artistName = cover.objectForKey("@name")  as! String
+            if (cover.object(forKey: "@name") != nil) {
+                self.artistName = cover.object(forKey: "@name")  as! String
             }
         } else {
             self.isCover = false
         }
         
-        if value.objectForKey("@tape") != nil {
+        if value.object(forKey: "@tape") != nil {
             self.isTape = true
-            if (value.objectForKey("cover") != nil) {
+            if (value.object(forKey: "cover") != nil) {
                 
-                let cover = value.objectForKey("cover") as! NSDictionary
+                let cover = value.object(forKey: "cover") as! NSDictionary
                 
-                if (cover.objectForKey("@name") != nil) {
-                    self.artistName = cover.objectForKey("@name")  as! String
+                if (cover.object(forKey: "@name") != nil) {
+                    self.artistName = cover.object(forKey: "@name")  as! String
                 }
             }
         } else {
