@@ -18,11 +18,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = 5.0
     }
     
-    func configureCell(artist:Artist){
-        
-        print(artist)
-        print(artist.name)
-        
+    func configureCell(_ artist:Artist){
         self.name.text = artist.name
         self.name.textColor = UIColor().mainColor()
         self.thumbnail.image = UIImage().getImageFromName(artist.mbid)

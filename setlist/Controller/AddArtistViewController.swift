@@ -45,23 +45,23 @@ class AddArtistViewController: UIViewController {
         self.closeButton.tintColor = UIColor().mainColor()
         self.closeButton.layer.cornerRadius = 5
         self.closeButton.layer.masksToBounds = true
-        self.closeButton.layer.borderColor = UIColor().mainColor().CGColor
+        self.closeButton.layer.borderColor = UIColor().mainColor().cgColor
         self.closeButton.layer.borderWidth = 1
-        self.closeButton.setTitle(String(format: NSLocalizedString("add_artist_to_library_no", comment: "Ne pas ajouter l'artiste")), forState: .Normal)
-        self.closeButton.setTitleColor(UIColor().mainColor(), forState: .Normal)
+        self.closeButton.setTitle(String(format: NSLocalizedString("add_artist_to_library_no", comment: "Ne pas ajouter l'artiste")), for: UIControlState())
+        self.closeButton.setTitleColor(UIColor().mainColor(), for: UIControlState())
         
         // Bouton Ajouter
         self.addButton.backgroundColor = UIColor().mainColor()
         self.addButton.tintColor = UIColor().buttonColor()
         self.addButton.layer.cornerRadius = 5
         self.addButton.layer.masksToBounds = true
-        self.addButton.layer.borderColor = UIColor().mainColor().CGColor
+        self.addButton.layer.borderColor = UIColor().mainColor().cgColor
         self.addButton.layer.borderWidth = 1
-        self.addButton.setTitle(String(format: NSLocalizedString("add_artist_to_library_yes", comment: "Ajout de l'artist")), forState: .Normal)
+        self.addButton.setTitle(String(format: NSLocalizedString("add_artist_to_library_yes", comment: "Ajout de l'artist")), for: UIControlState())
         
-        UIView.animateWithDuration(1) {
+        UIView.animate(withDuration: 1, animations: {
             self.backgroundView.alpha = 1.0
-        }
+        }) 
     }
     
     
@@ -72,47 +72,48 @@ class AddArtistViewController: UIViewController {
             // On va chercher sur Spotify l'image du groupe
             var url:String = App.URL.spotify + "search?q=" +  myArtist.name as String + "&type=artist&limit=1"
             print(url)
-            url = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
-            Alamofire.request(.GET, url, parameters: [:])
-                .responseJSON { response in
+            url = url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+
+            Alamofire.request(url, method: .get).responseJSON { response in
                     switch response.result {
-                    case .Success:
+                    case .success:
                         print(response)
                         let response = response.result.value as! NSDictionary
-                        let res = response.objectForKey("artists")!  as! NSDictionary
-                        let items = res.objectForKey("items")!  as! NSArray
-                        let images = items.firstObject?.objectForKey("images")! as! NSArray
-                        
-                        self.myArtist.thumbnails = images.firstObject?.objectForKey("url") as! String
+                        let res = response.object(forKey: "artists")! as! NSDictionary
+                        let items = res.object(forKey: "items")! as! NSArray
+                        let images = (items[0] as AnyObject)
+                        let imagesArr = images.object(forKey: "images") as! NSArray
+
+                        self.myArtist.thumbnails = (imagesArr[0] as AnyObject).object(forKey: "url") as! String
                         
                         if let url = NSURL(string: self.myArtist.thumbnails) {
-                            if let data = NSData(contentsOfURL: url) {
-                                self.imageArtist.image = UIImage(data: data)
+                            if let data = NSData(contentsOf: url as URL) {
+                                self.imageArtist.image = UIImage(data: data as Data)
                             }
                         }
-                        print(self.myArtist.thumbnails)
+                       // print(self.myArtist.thumbnails)
                         self.imageArtist.image = self.myArtist.getImage()
-                        
-                    case .Failure(let error):
+                    
+                    case .failure(let error):
                         print(error)
                     }
             }
         }
     }
     
-    @IBAction func addArtist(sender: AnyObject) {
-        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+    @IBAction func addArtist(_ sender: AnyObject) {
+        let app = UIApplication.shared.delegate as! AppDelegate
         let context = app.managedObjectContext
-        let entity = NSEntityDescription.entityForName("Artists", inManagedObjectContext: context)
+        let entity = NSEntityDescription.entity(forEntityName: "Artists", in: context)
         
         UIImage().saveImageFromUIImage(self.myArtist.mbid, myImageToSave: self.imageArtist.image!)
         
-        let artist = Artists(entity: entity!, insertIntoManagedObjectContext: context)
+        let artist = Artists(entity: entity!, insertInto: context)
         artist.name = self.myArtist.name
         artist.mbid = self.myArtist.mbid
-        artist.dateAdd = NSDate()
+        artist.dateAdd = Date() as NSDate?
         
-        context.insertObject(artist)
+        context.insert(artist)
         
         do {
             try context.save()
@@ -123,12 +124,12 @@ class AddArtistViewController: UIViewController {
         self.closeViewController()
     }
     
-    @IBAction func closeButton(sender: AnyObject) {
+    @IBAction func closeButton(_ sender: AnyObject) {
         self.closeViewController()
     }
 
     func closeViewController() {
-        self.dismissViewControllerAnimated(false, completion: {});
+        self.dismiss(animated: false, completion: {});
     }
     
     override func didReceiveMemoryWarning() {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0730"
+   LastUpgradeVersion = "0800"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "146533101D6C5D7F002B4768"
                BuildableName = "Setlist.temp_caseinsensitive_rename.app"
-               BlueprintName = "setlist"
+               BlueprintName = "Setlist"
                ReferencedContainer = "container:Setlist.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -34,7 +34,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "146533101D6C5D7F002B4768"
             BuildableName = "Setlist.temp_caseinsensitive_rename.app"
-            BlueprintName = "setlist"
+            BlueprintName = "Setlist"
             ReferencedContainer = "container:Setlist.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -57,7 +57,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "146533101D6C5D7F002B4768"
             BuildableName = "Setlist.temp_caseinsensitive_rename.app"
-            BlueprintName = "setlist"
+            BlueprintName = "Setlist"
             ReferencedContainer = "container:Setlist.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -76,7 +76,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "146533101D6C5D7F002B4768"
             BuildableName = "Setlist.temp_caseinsensitive_rename.app"
-            BlueprintName = "setlist"
+            BlueprintName = "Setlist"
             ReferencedContainer = "container:Setlist.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

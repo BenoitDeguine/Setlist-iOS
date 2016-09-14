@@ -10,31 +10,31 @@ import UIKit
 
 extension UIImage {
     
-    func saveImageFromUIImage(name:String, myImageToSave:UIImage)->Bool{
+    func saveImageFromUIImage(_ name:String, myImageToSave:UIImage)->Bool{
         
-        let documentsPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
-        let logsPath = documentsPath.URLByAppendingPathComponent(App.File.folderName)
+        let documentsPath = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])
+        let logsPath = documentsPath.appendingPathComponent(App.File.folderName)
         
-        if (!NSFileManager.defaultManager().isReadableFileAtPath(logsPath.path!)) {
+        if (!FileManager.default.isReadableFile(atPath: logsPath.path)) {
             do {
-                try NSFileManager.defaultManager().createDirectoryAtPath(logsPath.path!, withIntermediateDirectories: true, attributes: nil)
+                try FileManager.default.createDirectory(atPath: logsPath.path, withIntermediateDirectories: true, attributes: nil)
             } catch let error as NSError {
                 print("Unable to create directory \(error.debugDescription)")
             }
         }
         
-        let fileManager = NSFileManager.defaultManager()
-        let paths = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString).stringByAppendingPathComponent(App.File.folderName + "/" + name + ".jpg")
-        return fileManager.createFileAtPath(paths as String, contents: UIImageJPEGRepresentation(myImageToSave, 1), attributes: nil)
+        let fileManager = FileManager.default
+        let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(App.File.folderName + "/" + name + ".jpg")
+        return fileManager.createFile(atPath: paths as String, contents: UIImageJPEGRepresentation(myImageToSave, 1), attributes: nil)
     }
     
-    func getImageFromName(name:String)->UIImage{
-        let documentsPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
-        let logsPath = documentsPath.URLByAppendingPathComponent(App.File.folderName)
+    func getImageFromName(_ name:String)->UIImage{
+        let documentsPath = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])
+        let logsPath = documentsPath.appendingPathComponent(App.File.folderName)
         
-        if (NSFileManager.defaultManager().fileExistsAtPath(logsPath.path!)) {
-            let fileManager = NSFileManager.defaultManager()
-            let paths = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString).stringByAppendingPathComponent(App.File.folderName + "/" + name + ".jpg")
+        if (FileManager.default.fileExists(atPath: logsPath.path)) {
+            let fileManager = FileManager.default
+            let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(App.File.folderName + "/" + name + ".jpg")
             
             return UIImage(contentsOfFile: paths as String)!
         } else {
@@ -43,17 +43,17 @@ extension UIImage {
         
     }
     
-    func takeScreenshoot(view:UIView)->UIImage{
+    func takeScreenshoot(_ view:UIView)->UIImage{
         
-        let layer = UIApplication.sharedApplication().keyWindow!.layer
-        let scale = UIScreen.mainScreen().scale
+        let layer = UIApplication.shared.keyWindow!.layer
+        let scale = UIScreen.main.scale
         UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, scale);
         
-        layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        layer.render(in: UIGraphicsGetCurrentContext()!)
         let screenshot = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return screenshot
+        return screenshot!
     }
     
 }

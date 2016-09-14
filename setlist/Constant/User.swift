@@ -9,5 +9,5 @@
 import UIKit
 
 class User {
-    static let language:String = NSBundle.mainBundle().preferredLocalizations.first! as String
+    static let language:String = Bundle.main.preferredLocalizations.first! as String
 }

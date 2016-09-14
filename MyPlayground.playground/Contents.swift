@@ -1,14 +1,10 @@
 import UIKit
 
 
-extension String
-{
-    func trim() -> String
-    {
-        return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-    }
-}
+let dateFormatter = NSDateFormatter()
+dateFormatter.dateStyle = .ShortStyle
+dateFormatter.timeStyle = .ShortStyle
+dateFormatter.doesRelativeDateFormatting = true
 
-var search:String = "Band of "
-
-search.capitalizedString
+let date = NSDate()
+let dateString = dateFormatter.stringFromDate(date)
