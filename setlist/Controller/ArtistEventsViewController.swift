@@ -11,6 +11,9 @@ import Alamofire
 
 class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    let dimLevel: CGFloat = 0.5
+    let dimSpeed: Double = 0.5
+    
     var artist:Artist!
     var events = Array<Array<Event>>()
     var eventsSection = [String]()
@@ -45,7 +48,6 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     // API SetlistFM
-    
     func searchSetlist() {
         self.pageNumber = self.pageNumber + 1
         var url:String = App.URL.setlistfm + "artist/" +  artist.mbid + "/setlists.json?&l=" + User.language + "&p=" + String(pageNumber)
@@ -69,12 +71,12 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
                             self.events[res].append(event)
                         }
                     }
+                    
                     // Pour savoir si on joue l'effet sur les cell
                     self.tableViewEffetInsertRow = false
                     self.artistEvents.reloadData({ 
                         self.tableViewEffetInsertRow = true
                     })
-                    
                     
                 case .Failure(let error):
                     print(error)
@@ -105,6 +107,8 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
         print(event.sets.count)
         print(event.sets.first?.song)
         print(event.sets.first?.song.first?.name)
+    
+        performSegueWithIdentifier("openSetlist", sender: event)
     }
     
     // MARK: - Table view section
@@ -195,7 +199,7 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
 
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
          let cell = tableView.dequeueReusableCellWithIdentifier("SectionTableViewHeader") as! SectionTableViewHeader
-        cell.backgroundColor = UIColor().maColor()
+        cell.backgroundColor = UIColor().mainColor()
         cell.title.textColor = UIColor().buttonColor()
 
         var fullDate = self.eventsSection[section].characters.split{$0 == "-"}.map(String.init)
@@ -217,15 +221,16 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
         return self.eventsSection.indexOf(text)!
     }
     
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "openSetlist") {
-            if let detailsVC = segue.destinationViewController as? ArtistEventsViewController {
-                if let artist = sender as? Artist {
-                    detailsVC.artist = artist
+            if let detailsVC = segue.destinationViewController as? ShowSetlistViewController {
+                if let myEvent = sender as? Event {
+                    detailsVC.event = myEvent
+                    detailsVC.imageBackground = UIImage().takeScreenshoot(self.view)
+                    detailsVC.artist = self.artist
                 }
             }
         }
     }
-    
+
 }

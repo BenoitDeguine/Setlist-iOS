@@ -26,11 +26,15 @@ class AddArtistViewController: UIViewController {
         super.viewDidLoad()
         self.searchArtistImage()
         
+        self.backgroundView.alpha = 0
+
         self.backgroundView.layer.cornerRadius = 10
         self.backgroundView.layer.masksToBounds = false
         
         self.imageArtist.layer.cornerRadius = 8
         self.imageArtist.layer.masksToBounds = true
+        
+        self.navigationController?.navigationBar.setBottomBorderColor(UIColor().mainColor(), height: 1)
         
         // Texte
         self.textArtist.text = String(format: NSLocalizedString("add_artist_to_library", comment: ""), myArtist.name)
@@ -54,6 +58,10 @@ class AddArtistViewController: UIViewController {
         self.addButton.layer.borderColor = UIColor().mainColor().CGColor
         self.addButton.layer.borderWidth = 1
         self.addButton.setTitle(String(format: NSLocalizedString("add_artist_to_library_yes", comment: "Ajout de l'artist")), forState: .Normal)
+        
+        UIView.animateWithDuration(1) {
+            self.backgroundView.alpha = 1.0
+        }
     }
     
     
@@ -108,10 +116,19 @@ class AddArtistViewController: UIViewController {
         
         do {
             try context.save()
-            print("ok")
+            
         } catch {
-            print("Error d'enregistrement")
         }
+        
+        self.closeViewController()
+    }
+    
+    @IBAction func closeButton(sender: AnyObject) {
+        self.closeViewController()
+    }
+
+    func closeViewController() {
+        self.dismissViewControllerAnimated(false, completion: {});
     }
     
     override func didReceiveMemoryWarning() {

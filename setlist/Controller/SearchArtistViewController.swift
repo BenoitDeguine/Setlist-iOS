@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, Dimmable{
+class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var closeButton: UIBarButtonItem!
@@ -27,6 +27,9 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
         self.view.backgroundColor = UIColor().backgroundColor()
         
         self.navigationController?.navigationBar.setBottomBorderColor(UIColor().mainColor(), height: 1)
+       
+        self.searchBar.layer.borderWidth = 1
+        self.searchBar.layer.borderColor = UIColor().mainColor().CGColor
         
         searchBar.translucent = false
         searchBar.backgroundColor = UIColor().mainColor()
@@ -36,26 +39,19 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
         self.closeButton.tintColor = UIColor().buttonColor()
         
         self.setFocusOnBar()
-        
     }
-    override func didReceiveMemoryWarning() { super.didReceiveMemoryWarning() }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
     
     // MARK: - Segues
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        print(segue.destinationViewController)
-        
         if (segue.identifier == "addArtist")  {
-            var addArtistSegue:AddArtistViewController = segue.destinationViewController as! AddArtistViewController
+            let addArtistSegue:AddArtistViewController = segue.destinationViewController as! AddArtistViewController
             addArtistSegue.myArtist = sender as! Artist
-            dim(.In, alpha: dimLevel, speed: dimSpeed)
         }
-     
     }
-    
-    @IBAction func unwindFromSecondary(segue: UIStoryboardSegue) {
-        dim(.Out, speed: dimSpeed)
-    }
-    
     
     @IBAction func closeViewController(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: {});
@@ -70,7 +66,7 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         searchBar.endEditing(true)
         
-        var url:String = "http://musicbrainz.org/ws/2/artist/?query=artist:" +  searchBar.text! as String + "*&fmt=json"
+        var url:String = App.URL.musicbrainz + "artist/?query=artist:" +  (searchBar.text?.trim())! as String + "*&fmt=json"
         print(url)
         url = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
         
@@ -105,7 +101,6 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
         if (self.artistsSearch[indexPath.row].disambiguation == "") {
             let cell:UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
             cell.textLabel?.text = self.artistsSearch[indexPath.row].name
@@ -117,13 +112,10 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
             
             return cell
         }
-        
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        // On ouvre le segue
         self.performSegueWithIdentifier("addArtist", sender: self.artistsSearch[indexPath.row])
     }
-    
     
 }

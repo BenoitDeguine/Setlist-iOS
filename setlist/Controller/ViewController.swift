@@ -25,9 +25,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         navigationController!.navigationBar.barTintColor = UIColor().mainColor()
         navigationController?.navigationBar.tintColor = UIColor().mainColor()
+        
         self.view.backgroundColor = UIColor().backgroundColor()
         self.addNewArtist.tintColor = UIColor().buttonColor()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
         self.fetchAndSetResults()
+          self.collection.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -38,14 +43,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func fetchAndSetResults() {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let context = app.managedObjectContext
-        let fetchRequest = NSFetchRequest(entityName :  "Artists")
+        let fetchRequest = NSFetchRequest(entityName: "Artists")
         
         do {
             let results = try context.executeFetchRequest(fetchRequest)
             self.artists = results as! [Artists]
-            
-            print(self.artists)
-            print(self.artists.count)
         } catch let err as NSError {
             print(err.debugDescription)
         }
@@ -53,7 +55,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     // MARK: - UICollectionView
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        
         
         if let cell = collectionView.dequeueReusableCellWithReuseIdentifier("artistCell", forIndexPath: indexPath) as? ArtistCollectionViewCell {
             
@@ -70,7 +71,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let artist = Artist(name: self.artists[indexPath.row].name!, mbid: self.artists[indexPath.row].mbid!)
         
         performSegueWithIdentifier("openArtistSetlist", sender: artist)
-        
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -82,7 +82,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        var size:CGFloat = ((UIScreen.mainScreen().bounds.width-20)/2)-5
+        let size:CGFloat = ((UIScreen.mainScreen().bounds.width-20)/2)-5
         
         return CGSizeMake(size, size-15)
     }
