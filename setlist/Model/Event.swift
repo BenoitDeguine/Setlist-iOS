@@ -34,6 +34,11 @@ class Event {
             
             if (sets.objectForKey("set")!.isKindOfClass(NSArray)) {
                 let set = sets.objectForKey("set")! as! NSArray
+                
+                for i in set {
+                    self.sets.append(Set(value:i as! NSDictionary))
+                }
+
             } else {
                 let set = sets.objectForKey("set")! as! NSDictionary
                 self.sets.append(Set(value:set))
