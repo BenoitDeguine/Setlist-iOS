@@ -22,6 +22,10 @@ extension UIColor{
         return self.hexStringToUIColor("#FFFFFF")
     }
     
+    func tapeSetlistColor()->UIColor {
+        return self.hexStringToUIColor("#999999")
+    }
+    
     func hexStringToUIColor(hex:String)->UIColor {
         var cString:String = hex.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet() as NSCharacterSet).uppercaseString
         
