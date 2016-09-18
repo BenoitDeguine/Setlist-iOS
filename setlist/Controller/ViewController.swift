@@ -13,6 +13,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     @IBOutlet weak var addNewArtist: UIBarButtonItem!
     @IBOutlet weak var collection:UICollectionView!
+    @IBOutlet weak var labelArtistEmpty: UILabel!
     
     var artists = [Artists]()
     var fetchedresultsController: NSFetchedResultsController<Artists>!
@@ -24,7 +25,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.collection.dataSource = self
         
         navigationController!.navigationBar.barTintColor = UIColor().mainColor()
-        navigationController?.navigationBar.tintColor = UIColor().mainColor()
+        navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationItem.title = String(format: NSLocalizedString("my_artists", comment: "Mes artistes"))
         
         self.view.backgroundColor = UIColor().backgroundColor()
         self.addNewArtist.tintColor = UIColor().buttonColor()
@@ -32,7 +34,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     override func viewDidAppear(_ animated: Bool) {
         self.fetchAndSetResults()
-          self.collection.reloadData()
+        self.collection.reloadData()
+        
+        if (self.artists.count > 0) {
+            self.labelArtistEmpty.isHidden = true
+        } else {
+            self.collection.isHidden = true
+            self.labelArtistEmpty.text = String(format: NSLocalizedString("my_artists_empty", comment: "Aucun artiste"))
+            self.labelArtistEmpty.textColor = UIColor().darkGrey()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -64,7 +74,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         } else {
             return UICollectionViewCell()
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
