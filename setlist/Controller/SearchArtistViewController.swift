@@ -101,7 +101,6 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
                 } else {
                     self.tableView.isHidden = true
                     self.labelInfo.text = String(format: NSLocalizedString("add_artist_zero_result", comment: "Aucun artiste"))
-                    
                 }
                 self.tableView.reloadData()
                 
@@ -132,6 +131,7 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "addArtist", sender: self.artistsSearch[(indexPath as NSIndexPath).row])
+        self.tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }
