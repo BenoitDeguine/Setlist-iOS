@@ -14,6 +14,7 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var closeButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var labelInfo: UILabel!
     
     let dimLevel: CGFloat = 0.5
     let dimSpeed: Double = 0.5
@@ -27,7 +28,7 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
         self.view.backgroundColor = UIColor().backgroundColor()
         
         self.navigationController?.navigationBar.setBottomBorderColor(UIColor().mainColor(), height: 1)
-       
+        
         self.searchBar.layer.borderWidth = 1
         self.searchBar.layer.borderColor = UIColor().mainColor().cgColor
         
@@ -39,6 +40,14 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
         self.closeButton.tintColor = UIColor().buttonColor()
         
         self.setFocusOnBar()
+        
+        self.tableView.isHidden = true
+        self.labelInfo.isHidden = false
+        self.labelInfo.textColor = UIColor().darkGrey()
+        self.labelInfo.text = ""
+        
+        self.searchBar.placeholder = String(format: NSLocalizedString("add_artist_placeholder", comment: "Rechercher un artiste"))
+        self.navigationItem.title = String(format: NSLocalizedString("add_artist_placeholder", comment: "Rechercher un artiste"))
     }
     
     override func didReceiveMemoryWarning() {
@@ -71,26 +80,34 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
         url = url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         
         Alamofire.request(url, method: .get).responseJSON { response in
-                switch response.result {
-                case .success:
-                    let response = response.result.value as! NSDictionary
-                    let res = response.object(forKey: "artists")!  as! NSArray
-                    let nombre:Int = response.object(forKey: "count") as! Int
-                    
-                    self.artistsSearch.removeAll()
-                    
-                    for i in res {
-                        var disambiguation:String = ""
-                        if ((i as! NSDictionary).object(forKey: "disambiguation") != nil) {
-                            disambiguation = (i as! NSDictionary).object(forKey: "disambiguation") as! String
-                        }
-                        self.artistsSearch.append(Artist(name: (i as! NSDictionary).object(forKey: "name") as! String, mbid: (i as! NSDictionary).object(forKey: "id") as! String, disambiguation:disambiguation))
+            switch response.result {
+            case .success:
+                let response = response.result.value as! NSDictionary
+                let res = response.object(forKey: "artists")!  as! NSArray
+                let nombre:Int = response.object(forKey: "count") as! Int
+                
+                self.artistsSearch.removeAll()
+                
+                for i in res {
+                    var disambiguation:String = ""
+                    if ((i as! NSDictionary).object(forKey: "disambiguation") != nil) {
+                        disambiguation = (i as! NSDictionary).object(forKey: "disambiguation") as! String
                     }
-                    self.tableView.reloadData()
-                    
-                case .failure(let error):
-                    print(error)
+                    self.artistsSearch.append(Artist(name: (i as! NSDictionary).object(forKey: "name") as! String, mbid: (i as! NSDictionary).object(forKey: "id") as! String, disambiguation:disambiguation))
                 }
+                
+                if (self.artistsSearch.count > 0) {
+                    self.tableView.isHidden = false
+                } else {
+                    self.tableView.isHidden = true
+                    self.labelInfo.text = String(format: NSLocalizedString("add_artist_zero_result", comment: "Aucun artiste"))
+                    
+                }
+                self.tableView.reloadData()
+                
+            case .failure(let error):
+                print(error)
+            }
         }
     }
     
