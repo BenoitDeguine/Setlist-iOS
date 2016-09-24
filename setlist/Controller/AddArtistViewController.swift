@@ -20,6 +20,9 @@ class AddArtistViewController: UIViewController {
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var addButton: UIButton!
     
+    @IBOutlet weak var labelLoading: UILabel!
+    @IBOutlet weak var activityLoader: UIActivityIndicatorView!
+    
     var myArtist = Artist()
     
     override func viewDidLoad() {
@@ -33,6 +36,7 @@ class AddArtistViewController: UIViewController {
         
         self.imageArtist.layer.cornerRadius = 8
         self.imageArtist.layer.masksToBounds = true
+        self.imageArtist.backgroundColor = UIColor().mainColor()
         
         self.navigationController?.navigationBar.setBottomBorderColor(UIColor().mainColor(), height: 1)
         
@@ -59,6 +63,10 @@ class AddArtistViewController: UIViewController {
         self.addButton.layer.borderWidth = 1
         self.addButton.setTitle(String(format: NSLocalizedString("add_artist_to_library_yes", comment: "Ajout de l'artist")), for: UIControlState())
         
+        self.labelLoading.textColor = UIColor().buttonColor()
+        self.labelLoading.text = NSLocalizedString("add_artist_loading_image", comment: "Chargement de l'image")
+        self.activityLoader.tintColor = UIColor().buttonColor()
+        
         UIView.animate(withDuration: 1, animations: {
             self.backgroundView.alpha = 1.0
         }) 
@@ -70,7 +78,7 @@ class AddArtistViewController: UIViewController {
         
         if (myArtist.mbid != "") {
             // On va chercher sur Spotify l'image du groupe
-            var url:String = App.URL.spotify + "search?q=" +  myArtist.name as String + "&type=artist&limit=1"
+            var url:String = App.URL.spotify + "search?q=" +  myArtist.name as String + "&type=artist&limit=2"
             print(url)
             url = url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
 
@@ -78,6 +86,8 @@ class AddArtistViewController: UIViewController {
                     switch response.result {
                     case .success:
                         print(response)
+                        self.labelLoading.isHidden = true
+                        self.activityLoader.isHidden = true
                         let response = response.result.value as! NSDictionary
                         let res = response.object(forKey: "artists")! as! NSDictionary
                         let items = res.object(forKey: "items")! as! NSArray
@@ -117,8 +127,8 @@ class AddArtistViewController: UIViewController {
         
         do {
             try context.save()
-            
         } catch {
+            
         }
         
         self.closeViewController()
