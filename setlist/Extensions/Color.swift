@@ -26,6 +26,10 @@ extension UIColor{
         return self.hexStringToUIColor("#999999")
     }
     
+    func darkGrey()->UIColor {
+        return self.hexStringToUIColor("#7f8c8d")
+    }
+    
     func hexStringToUIColor(_ hex:String)->UIColor {
         var cString:String = hex.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
         
