@@ -12,7 +12,8 @@ class SetlistCellWithInfo: UITableViewCell {
     
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var info: UILabel!
-
+    @IBOutlet weak var labelNumber: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.title.textColor = UIColor().buttonColor()
