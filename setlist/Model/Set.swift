@@ -25,7 +25,12 @@ class Set {
         // Si le set est un "Encore"
         if value.object(forKey: "@encore") != nil {
             self.isEncore = true
-            self.name = value.object(forKey: "@encore") as! String
+            
+            if value.object(forKey: "@name") != nil {
+                 self.name = value.object(forKey: "@name") as! String
+            } else {
+                 self.name = value.object(forKey: "@encore") as! String
+            }
         } else {
             self.isEncore = false
         }
