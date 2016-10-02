@@ -20,15 +20,26 @@ class ShowSetlistViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(patternImage: self.imageBackground)
+        self.tableViewSetlist.backgroundColor = UIColor.clear
         self.imageClose.tintColor = UIColor.white
         
-        // Pour fermer la fenêtre lors d'un clic sur la fenêtre
+        // Pour fermer la fenêtre lors d'un clic sur l'image
         let tap = UITapGestureRecognizer(target: self, action: #selector(ShowSetlistViewController.closeWindows))
         imageClose.addGestureRecognizer(tap)
         imageClose.isUserInteractionEnabled = true
         
         self.tableViewSetlist.rowHeight = UITableViewAutomaticDimension
         self.tableViewSetlist.estimatedRowHeight = 55.0
+        
+        var numberOfSong = 1
+        for e in event.sets {
+            for song in e.song {
+                if (!song.isTape) {
+                    song.number = numberOfSong
+                    numberOfSong += 1
+                }
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -52,8 +63,6 @@ class ShowSetlistViewController: UIViewController, UITableViewDelegate, UITableV
                 let cell = tableView.dequeueReusableCell(withIdentifier: "setlistCellTapeWithoutInfo")! as! SetlistCellTapeWithoutInfo
                 cell.title.text = self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].name as String
                 
-                print(self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].name)
-                
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "setlistCellTape")! as! SetlistCellTape
@@ -73,17 +82,24 @@ class ShowSetlistViewController: UIViewController, UITableViewDelegate, UITableV
             
             print(self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].artistName)
             cell.info.text = self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].artistName + " Cover"
+            cell.labelNumber.text = String(self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].number) + "."
+            cell.labelNumber.textColor = UIColor().darkGrey()
             
             return cell
         } else if (self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].info == nil) {
             let cell:SetlistCell = tableView.dequeueReusableCell(withIdentifier: "setlistCell")! as! SetlistCell
             cell.title.text = self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].name as String
+            cell.labelNumber.text = String(self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].number) + "."
+            cell.labelNumber.textColor = UIColor().darkGrey()
             
             return cell
         } else {
             let cell:SetlistCellWithInfo = tableView.dequeueReusableCell(withIdentifier: "setlistCellWithInfo")! as! SetlistCellWithInfo
             cell.title.text = self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].name as String
             cell.info.text = self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].info as String
+            
+            cell.labelNumber.text = String(self.event.sets[(indexPath as NSIndexPath).section].song[(indexPath as NSIndexPath).row].number) + "."
+            cell.labelNumber.textColor = UIColor().darkGrey()
             
             return cell
         }
@@ -96,11 +112,15 @@ class ShowSetlistViewController: UIViewController, UITableViewDelegate, UITableV
         cell.backgroundColor = UIColor.clear
         cell.title.textColor = UIColor().buttonColor()
         
-        // S'il y a plusieurs Encore, on affichera "Encore 1", "encore 2", ...
+        // S'il y a plusieurs Encore, on affichera "Encore 1", "Encore 2", ...
         if (self.event.sets[section].isEncore && ((section+1) != self.event.sets.count)) {
             cell.title.text = "Encore " + self.event.sets[section].name
-        } else if (self.event.sets[section].isEncore ) { // S'il y en a qu'un on affichera uniquement "Encore"
-            cell.title.text = "Encore"
+        } else if (self.event.sets[section].isEncore) { // S'il y en a qu'un on affichera uniquement "Encore"
+            if (self.event.sets[section].name.characters.count > 1) {
+                cell.title.text = self.event.sets[section].name
+            } else {
+                cell.title.text = "Encore"
+            }
         } else { // Sinon le nom du Set récupéré de setlist.fm
             cell.title.text = self.event.sets[section].name
         }
@@ -122,7 +142,7 @@ class ShowSetlistViewController: UIViewController, UITableViewDelegate, UITableV
         
         UIView.animate(withDuration: 0.75, animations: {
             cell.alpha = 1.0
-        }) 
+        })
     }
     
     func closeWindows() {
