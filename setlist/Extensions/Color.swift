@@ -13,7 +13,7 @@ extension UIColor{
     func mainColor()->UIColor {
         return self.hexStringToUIColor("#85b146")
     }
-
+    
     func backgroundColor()->UIColor {
         return self.hexStringToUIColor("#F5F5F5")
     }
@@ -28,6 +28,10 @@ extension UIColor{
     
     func darkGrey()->UIColor {
         return self.hexStringToUIColor("#7f8c8d")
+    }
+    
+    func setlistUnavailable()->UIColor {
+        return self.hexStringToUIColor("#bdc3c7")
     }
     
     func hexStringToUIColor(_ hex:String)->UIColor {
