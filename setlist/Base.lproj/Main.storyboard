@@ -628,19 +628,19 @@
                                                         <outlet property="title" destination="p2d-LD-kJD" id="F5Z-tf-aTg"/>
                                                     </connections>
                                                 </tableViewCell>
-                                                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="setlistCellWithInfo" rowHeight="64" id="Raz-Ax-Ye2" customClass="SetlistCellWithInfo" customModule="Setlist" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="165" width="375" height="64"/>
+                                                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="setlistCellWithInfo" rowHeight="90" id="Raz-Ax-Ye2" customClass="SetlistCellWithInfo" customModule="Setlist" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="165" width="375" height="90"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Raz-Ax-Ye2" id="UT5-Ot-Qrd">
-                                                        <frame key="frameInset" width="375" height="64"/>
+                                                        <frame key="frameInset" width="375" height="90"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXM-WU-4lW">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time as an Imploding Unit / Waiting for Green" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXM-WU-4lW">
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fX7-sJ-79O">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="(First time since 2004)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fX7-sJ-79O">
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Italic" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -657,13 +657,14 @@
                                                         <constraints>
                                                             <constraint firstItem="fX7-sJ-79O" firstAttribute="top" secondItem="0p9-GV-isu" secondAttribute="bottom" constant="2" id="2MA-Hy-i1C"/>
                                                             <constraint firstItem="0p9-GV-isu" firstAttribute="leading" secondItem="UT5-Ot-Qrd" secondAttribute="leadingMargin" id="5AI-01-xtt"/>
+                                                            <constraint firstItem="WXM-WU-4lW" firstAttribute="leading" secondItem="UT5-Ot-Qrd" secondAttribute="leadingMargin" constant="35" id="DRV-2m-CEU"/>
                                                             <constraint firstAttribute="bottom" secondItem="fX7-sJ-79O" secondAttribute="bottom" constant="10" id="DZH-9K-bt1"/>
+                                                            <constraint firstItem="WXM-WU-4lW" firstAttribute="top" secondItem="UT5-Ot-Qrd" secondAttribute="topMargin" constant="2" id="KRG-gu-zBN"/>
                                                             <constraint firstAttribute="trailingMargin" secondItem="fX7-sJ-79O" secondAttribute="trailing" constant="2" id="d2R-i5-ysy"/>
-                                                            <constraint firstItem="fX7-sJ-79O" firstAttribute="leading" secondItem="UT5-Ot-Qrd" secondAttribute="leadingMargin" constant="40" id="ddh-5M-ahR"/>
+                                                            <constraint firstItem="fX7-sJ-79O" firstAttribute="leading" secondItem="UT5-Ot-Qrd" secondAttribute="leadingMargin" constant="35" id="ddh-5M-ahR"/>
                                                             <constraint firstAttribute="trailingMargin" secondItem="WXM-WU-4lW" secondAttribute="trailing" constant="5" id="emx-OL-ekU"/>
                                                             <constraint firstItem="WXM-WU-4lW" firstAttribute="leading" secondItem="0p9-GV-isu" secondAttribute="trailing" constant="5" id="kLI-Qo-ZtU"/>
                                                             <constraint firstItem="WXM-WU-4lW" firstAttribute="baseline" secondItem="0p9-GV-isu" secondAttribute="baseline" id="sXn-ie-SRo"/>
-                                                            <constraint firstItem="0p9-GV-isu" firstAttribute="top" secondItem="UT5-Ot-Qrd" secondAttribute="top" constant="5" id="zfC-fs-KwS"/>
                                                         </constraints>
                                                     </tableViewCellContentView>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -674,7 +675,7 @@
                                                     </connections>
                                                 </tableViewCell>
                                                 <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="setlistCellTapeWithoutInfo" rowHeight="32" id="DZb-cf-t4i" customClass="SetlistCellTapeWithoutInfo" customModule="Setlist" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="229" width="375" height="32"/>
+                                                    <rect key="frame" x="0.0" y="255" width="375" height="32"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DZb-cf-t4i" id="oj2-na-FqH">
                                                         <frame key="frameInset" width="375" height="32"/>
@@ -708,7 +709,7 @@
                                                     </connections>
                                                 </tableViewCell>
                                                 <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="setlistCellTape" rowHeight="55" id="8MX-E1-32r" customClass="SetlistCellTape" customModule="Setlist" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="261" width="375" height="55"/>
+                                                    <rect key="frame" x="0.0" y="287" width="375" height="55"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8MX-E1-32r" id="wPa-Ca-MKU">
                                                         <frame key="frameInset" width="375" height="55"/>
