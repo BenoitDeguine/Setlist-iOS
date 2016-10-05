@@ -23,14 +23,14 @@ class AddArtistViewController: UIViewController {
     @IBOutlet weak var labelLoading: UILabel!
     @IBOutlet weak var activityLoader: UIActivityIndicatorView!
     
-    var myArtist = Artist()
+    var myArtist:Artist!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.searchArtistImage()
         
         self.backgroundView.alpha = 0
-
+        
         self.backgroundView.layer.cornerRadius = 10
         self.backgroundView.layer.masksToBounds = false
         
@@ -69,7 +69,7 @@ class AddArtistViewController: UIViewController {
         
         UIView.animate(withDuration: 1, animations: {
             self.backgroundView.alpha = 1.0
-        }) 
+        })
     }
     
     
@@ -81,55 +81,56 @@ class AddArtistViewController: UIViewController {
             var url:String = App.URL.spotify + "search?q=" +  myArtist.name as String + "&type=artist&limit=2"
             print(url)
             url = url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-
+            
             Alamofire.request(url, method: .get).responseJSON { response in
-                    switch response.result {
-                    case .success:
-                        print(response)
-                        self.labelLoading.isHidden = true
-                        self.activityLoader.isHidden = true
-                        let response = response.result.value as! NSDictionary
-                        let res = response.object(forKey: "artists")! as! NSDictionary
-                        let items = res.object(forKey: "items")! as! NSArray
+                switch response.result {
+                case .success:
+                    print(response)
+                    self.labelLoading.isHidden = true
+                    self.activityLoader.isHidden = true
+                    let response = response.result.value as! NSDictionary
+                    let res = response.object(forKey: "artists")! as! NSDictionary
+                    let items = res.object(forKey: "items")! as! NSArray
+                    
+                    // S'il y a un résultat, alors on enregistre
+                    if (items.count > 0) {
                         let images = (items[0] as AnyObject)
                         let imagesArr = images.object(forKey: "images") as! NSArray
-
-                        self.myArtist.thumbnails = (imagesArr[0] as AnyObject).object(forKey: "url") as! String
                         
-                        if let url = NSURL(string: self.myArtist.thumbnails) {
-                            if let data = NSData(contentsOf: url as URL) {
-                                self.imageArtist.image = UIImage(data: data as Data)
+                        if (imagesArr.count > 0) {
+                            self.myArtist.thumbnails = (imagesArr[0] as AnyObject).object(forKey: "url") as! String
+                            
+                            DispatchQueue.global().async {
+                                if let url = NSURL(string: self.myArtist.thumbnails) {
+                                    DispatchQueue.main.async {
+                                        if let data = NSData(contentsOf: url as URL) {
+                                            self.imageArtist.image = UIImage(data: data as Data)
+                                        }
+                                    };
+                                }
+                                self.imageArtist.image = self.myArtist.getImage()
                             }
+                        } else {
+                            self.imageArtist.image = UIImage(named: "anonymousBand") 
                         }
-                       // print(self.myArtist.thumbnails)
-                        self.imageArtist.image = self.myArtist.getImage()
-                    
-                    case .failure(let error):
-                        print(error)
+                    } else {
+                        self.imageArtist.image = UIImage(named: "anonymousBand")
                     }
+                case .failure(let error):
+                    print(error)
+                }
             }
         }
     }
     
     @IBAction func addArtist(_ sender: AnyObject) {
-        let app = UIApplication.shared.delegate as! AppDelegate
-        let context = app.managedObjectContext
-        let entity = NSEntityDescription.entity(forEntityName: "Artists", in: context)
         
         UIImage().saveImageFromUIImage(self.myArtist.mbid, myImageToSave: self.imageArtist.image!)
         
-        let artist = Artists(entity: entity!, insertInto: context)
-        artist.name = self.myArtist.name
-        artist.mbid = self.myArtist.mbid
-        artist.dateAdd = Date() as NSDate?
+        let context = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
+        let artistsService = ArtistsService(context: context)
         
-        context.insert(artist)
-        
-        do {
-            try context.save()
-        } catch {
-            
-        }
+        artistsService.create(artist: self.myArtist)
         
         self.closeViewController()
     }
@@ -137,7 +138,7 @@ class AddArtistViewController: UIViewController {
     @IBAction func closeButton(_ sender: AnyObject) {
         self.closeViewController()
     }
-
+    
     func closeViewController() {
         self.dismiss(animated: false, completion: {});
     }
