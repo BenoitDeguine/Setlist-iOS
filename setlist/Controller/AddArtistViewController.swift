@@ -85,7 +85,7 @@ class AddArtistViewController: UIViewController {
             Alamofire.request(url, method: .get).responseJSON { response in
                 switch response.result {
                 case .success:
-                    print(response)
+                   
                     self.labelLoading.isHidden = true
                     self.activityLoader.isHidden = true
                     let response = response.result.value as! NSDictionary
@@ -94,7 +94,24 @@ class AddArtistViewController: UIViewController {
                     
                     // S'il y a un résultat, alors on enregistre
                     if (items.count > 0) {
-                        let images = (items[0] as AnyObject)
+                        
+                        var indexKey:Int = 0
+                        
+                        // Le premier résultat pour "Julia Stone" est "Angus et Julia Stone". On va vérifier dans les résultats si l'artiste "Julia Stone" n'existe pas, sinon on prends le premier
+                        if (items.count > 1) {
+                            var arrayName:Array = [String]()
+                            for artistFromSpotify in items {
+                                let nameArtistFromSpotify:String = (artistFromSpotify as AnyObject).object(forKey: "name") as! String
+                                arrayName.append(nameArtistFromSpotify.lowercased())
+                            }
+ 
+                            if let index = arrayName.index(of: self.myArtist.name.lowercased()) {
+                                indexKey = index
+                            }
+    
+                        }
+                        
+                        let images = (items[indexKey] as AnyObject)
                         let imagesArr = images.object(forKey: "images") as! NSArray
                         
                         if (imagesArr.count > 0) {
