@@ -38,6 +38,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         if (self.artists.count > 0) {
             self.labelArtistEmpty.isHidden = true
+            self.collection.isHidden = false
         } else {
             self.collection.isHidden = true
             self.labelArtistEmpty.text = String(format: NSLocalizedString("my_artists_empty", comment: "Aucun artiste"))
@@ -51,16 +52,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     // MARK: - Core Data
     func fetchAndSetResults() {
-        let app = UIApplication.shared.delegate as! AppDelegate
-        let context = app.managedObjectContext
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Artists")
+        let context = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
+        let artistsService = ArtistsService(context: context)
         
-        do {
-            let results = try context.fetch(fetchRequest)
-            self.artists = results as! [Artists]
-        } catch let err as NSError {
-            print(err.debugDescription)
-        }
+        self.artists = artistsService.getAll(order: .Alphabetique, ascending: true)
     }
     
     // MARK: - UICollectionView
@@ -68,7 +63,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "artistCell", for: indexPath) as? ArtistCollectionViewCell {
             
-            cell.configureCell(Artist(name: self.artists[(indexPath as NSIndexPath).row].getName(), mbid: self.artists[(indexPath as NSIndexPath).row].mbid!))
+            cell.configureCell(Artist(name: self.artists[(indexPath as NSIndexPath).row].name!, mbid: self.artists[(indexPath as NSIndexPath).row].mbid!))
             
             return cell
         } else {
@@ -78,6 +73,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let artist = Artist(name: self.artists[(indexPath as NSIndexPath).row].name!, mbid: self.artists[(indexPath as NSIndexPath).row].mbid!)
+        
+        let context = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
+        let artistsService = ArtistsService(context: context)
+        
+        let myArtist = artistsService.getById(id:self.artists[(indexPath as NSIndexPath).row].objectID)
+        myArtist?.countView = NSNumber(value: (myArtist?.countView?.intValue)! + 1)
+        artistsService.update(updatedArtist: myArtist!)
         
         performSegue(withIdentifier: "openArtistSetlist", sender: artist)
     }
@@ -105,5 +107,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             }
         }
     }
+
 }
 
