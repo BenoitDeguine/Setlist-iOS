@@ -78,7 +78,7 @@ class AddArtistViewController: UIViewController {
         
         if (myArtist.mbid != "") {
             // On va chercher sur Spotify l'image du groupe
-            var url:String = App.URL.spotify + "search?q=" +  myArtist.name as String + "&type=artist&limit=2"
+            var url:String = App.URL.spotify + "search?q=" +  myArtist.name as String + "&type=artist&limit=50"
             print(url)
             url = url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
             
