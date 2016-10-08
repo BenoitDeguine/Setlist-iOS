@@ -2,7 +2,7 @@
 //  Artists+CoreDataProperties.swift
 //  Setlist
 //
-//  Created by Benoit Deguine on 14/09/2016.
+//  Created by Benoit Deguine on 04/10/2016.
 //  Copyright © 2016 Benoit Deguine. All rights reserved.
 //
 
@@ -16,12 +16,9 @@ extension Artists {
         return NSFetchRequest<Artists>(entityName: "Artists");
     }
 
+    @NSManaged public var countView: NSNumber?
     @NSManaged public var dateAdd: NSDate?
     @NSManaged public var mbid: String?
     @NSManaged public var name: String?
 
-    func getName()->String {
-        return self.name!
-    }
-    
 }

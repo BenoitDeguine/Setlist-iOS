@@ -14,15 +14,31 @@ class Artist {
     var disambiguation:String!
     var mbid:String!
     var thumbnails:String!
+    var yearDebut:String!
     
     init() {
         
     }
     
-    init(name:String, mbid:String, disambiguation:String = "") {
+    init(name:String, mbid:String, disambiguation:String = "", debut:String = "") {
         self.name = name
         self.mbid = mbid
         self.disambiguation = disambiguation
+        self.yearDebut = debut
+    }
+    
+    init(value:NSDictionary){
+        if ((value).object(forKey: "disambiguation") != nil) {
+            self.disambiguation = (value).object(forKey: "disambiguation") as! String
+        }
+        
+        if ((value).object(forKey: "name") != nil) {
+            self.name = (value).object(forKey: "name") as! String
+        }
+        
+        if ((value).object(forKey: "id") != nil) {
+            self.mbid = (value).object(forKey: "id") as! String
+        }
     }
     
     func getImage()->UIImage {

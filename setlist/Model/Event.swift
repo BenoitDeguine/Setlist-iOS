@@ -17,11 +17,9 @@ class Event {
     var versionId:String!
     var venue:Venue!
     var sets = [Set]()
+    var numberSongs:Int = 0
     
     init(value:NSDictionary) {
-        
-        print(value)
-        
         self.id = value.object(forKey: "@id")! as! String
         self.date = value.object(forKey: "@eventDate")! as! String
         self.lastUpdated = value.object(forKey: "@lastUpdated")! as! String
@@ -39,13 +37,16 @@ class Event {
                 
                 for i in set {
                     self.sets.append(Set(value:i as! NSDictionary))
+                    self.numberSongs += (self.sets.last?.song.count)!
                 }
 
             } else {
                 let set = sets.object(forKey: "set")! as! NSDictionary
                 self.sets.append(Set(value:set))
+                self.numberSongs += (self.sets.last?.song.count)!
             }
         }
+        
     }
     
     func getDateMMYYYY()->String {

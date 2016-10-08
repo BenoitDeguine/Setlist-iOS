@@ -15,6 +15,7 @@ class Song {
     var isCover:Bool!
     var isTape:Bool!
     var artistName:String!
+    var number:Int = 0
     
     init(value:NSDictionary) {
         print(value)

@@ -15,6 +15,7 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
     @IBOutlet weak var closeButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var labelInfo: UILabel!
+    @IBOutlet weak var activityLoader: UIActivityIndicatorView!
     
     let dimLevel: CGFloat = 0.5
     let dimSpeed: Double = 0.5
@@ -45,9 +46,11 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
         self.labelInfo.isHidden = false
         self.labelInfo.textColor = UIColor().darkGrey()
         self.labelInfo.text = ""
+        self.activityLoader.isHidden = true
         
         self.searchBar.placeholder = String(format: NSLocalizedString("add_artist_placeholder", comment: "Rechercher un artiste"))
         self.navigationItem.title = String(format: NSLocalizedString("add_artist_placeholder", comment: "Rechercher un artiste"))
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -69,13 +72,16 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
     func setFocusOnBar() {
         self.searchBar.becomeFirstResponder()
     }
-    
-    
+
     // MARK: - UISearch
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
         
-        var url:String = App.URL.musicbrainz + "artist/?query=artist:" +  (searchBar.text?.trim())! as String + "*&fmt=json"
+        self.tableView.isHidden = true
+        self.labelInfo.text = String(format: NSLocalizedString("add_artist_search_pending", comment: "Message a afficher lors d'une recherche"))
+        self.activityLoader.isHidden = false
+
+        var url:String = App.URL.musicbrainz + "artist/?query=artist:" + (searchBar.text?.trim())! as String + "*&fmt=json"
         print(url)
         url = url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         
@@ -83,17 +89,13 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
             switch response.result {
             case .success:
                 let response = response.result.value as! NSDictionary
-                let res = response.object(forKey: "artists")!  as! NSArray
+                let res = response.object(forKey: "artists")! as! NSArray
                 let nombre:Int = response.object(forKey: "count") as! Int
                 
                 self.artistsSearch.removeAll()
                 
                 for i in res {
-                    var disambiguation:String = ""
-                    if ((i as! NSDictionary).object(forKey: "disambiguation") != nil) {
-                        disambiguation = (i as! NSDictionary).object(forKey: "disambiguation") as! String
-                    }
-                    self.artistsSearch.append(Artist(name: (i as! NSDictionary).object(forKey: "name") as! String, mbid: (i as! NSDictionary).object(forKey: "id") as! String, disambiguation:disambiguation))
+                    self.artistsSearch.append(Artist(value: i as! NSDictionary))
                 }
                 
                 if (self.artistsSearch.count > 0) {
@@ -101,6 +103,7 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
                 } else {
                     self.tableView.isHidden = true
                     self.labelInfo.text = String(format: NSLocalizedString("add_artist_zero_result", comment: "Aucun artiste"))
+                    self.activityLoader.isHidden = true
                 }
                 self.tableView.reloadData()
                 
@@ -116,7 +119,7 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (self.artistsSearch[(indexPath as NSIndexPath).row].disambiguation == "") {
+        if (self.artistsSearch[(indexPath as NSIndexPath).row].disambiguation == nil) {
             let cell:UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "cell")! as UITableViewCell
             cell.textLabel?.text = self.artistsSearch[(indexPath as NSIndexPath).row].name
             return cell

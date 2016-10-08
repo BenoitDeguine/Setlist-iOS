@@ -12,6 +12,5 @@ extension UITableView {
     func reloadData(_ completion: @escaping ()->()) {
         UIView.animate(withDuration: 0, animations: {
             self.reloadData() }, completion: { _ in completion() })
-        
     }
 }

@@ -6,8 +6,22 @@
   Copyright © 2016 Benoit Deguine. All rights reserved.
 */
 
+//Mark: - Mes artistes
+"my_artists" = "Mes artistes";
+"my_artists_empty" = "Vous n'avez pas encore ajouté d'artiste.\n\nCliquez sur le bouton \"+\" en haut à droite pour commencer.";
+
+//Mark: - Ajout d'un artiste
+"add_artist_zero_result" = "Aucun artiste trouvé.";
+"add_artist_search_pending" = "Recherche en cours...";
+"add_artist_placeholder" = "Rechercher un artiste";
 "add_artist_to_library" = "Voulez-vous ajouter %@ à vos artistes ?";
 "add_artist_to_library_yes" = "Ajouter";
 "add_artist_to_library_no" = "Fermer";
+"add_artist_loading_image" = "Chargement de l'image....";
+
+// Mark: - Dates d'un artiste
 "venue_unknown" = "Venue inconnue";
-"my_artists" = "Mes artistes";
+
+//Mark: - Obtenir les dernières setlists
+"set_last" = "Récupération des dernières dates de %@.";
+"set_last_none" = "Aucune date récente \n:(";

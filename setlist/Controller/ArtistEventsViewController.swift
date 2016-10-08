@@ -27,6 +27,8 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
     var tableViewEffetInsertRow:Bool = false
     
     @IBOutlet weak var artistEvents: UITableView!
+    @IBOutlet weak var labelMessage: UILabel!
+    @IBOutlet weak var animateLoader: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,10 +36,15 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
         self.artistEvents.delegate = self
         self.artistEvents.dataSource = self
         
+        self.artistEvents.isHidden = true
+        
         self.navigationController?.navigationBar.setBottomBorderColor(UIColor().mainColor(), height: 1)
         
         self.view.backgroundColor = UIColor().backgroundColor()
         self.navigationController!.navigationBar.tintColor = UIColor.white
+        
+        artistEvents.rowHeight = UITableViewAutomaticDimension
+        artistEvents.estimatedRowHeight = 200.0
         
         self.searchSetlist()
     }
@@ -49,6 +56,11 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
     
     // API SetlistFM
     func searchSetlist() {
+        
+        self.labelMessage.text = String(format: NSLocalizedString("set_last", comment: "Les dernières dates du groupe"),artist.name)
+        self.labelMessage.textColor = UIColor().darkGrey()
+        self.animateLoader.isHidden = false
+        
         self.pageNumber = self.pageNumber + 1
         var url:String = App.URL.setlistfm + "artist/" +  artist.mbid + "/setlists.json?&l=" + User.language + "&p=" + String(pageNumber)
         url = url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
@@ -57,19 +69,28 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
             .responseJSON { response in
                 
                 switch response.result {
-                    
                 case .success:
+                    
+                    self.artistEvents.isHidden = false
+                    self.labelMessage.isHidden = true
+                    self.animateLoader.isHidden = true
+                    
                     let response = response.result.value as! NSDictionary
                     let res = response.object(forKey: "setlists")!  as! NSDictionary
                     self.totalEvents = Int(res.object(forKey: "@total") as! String)!
                     
-                    let setlists = res.object(forKey: "setlist") as! NSArray
+                    var setlists = [NSDictionary]()
+                    // On verifie que l'objet est un array
+                    if (res.object(forKey: "setlist") as! NSObject) is NSDictionary {
+                        setlists.append(res.object(forKey: "setlist") as! NSDictionary)
+                    } else {
+                        setlists = (res.object(forKey: "setlist") as! NSArray) as! [NSDictionary]
+                    }
                     
                     if (setlists.count > 0) {
                         print(setlists)
-                        
                         for i in setlists {
-                            let event:Event = Event(value: i as! NSDictionary)
+                            let event:Event = Event(value: i)
                             let res:Int = self.addInSection(event.getDateMMYYYY())
                             self.events[res].append(event)
                         }
@@ -83,6 +104,8 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
                     
                 case .failure(let error):
                     print(error)
+                    self.labelMessage.text = NSLocalizedString("set_last_none", comment: "Les dernières dates du groupe")
+                    self.animateLoader.isHidden = true
                 }
         }
         
@@ -101,6 +124,17 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
         cell.titleLabel.text = self.events[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row].venue.getVenueName()
         cell.addressLabel.text = self.events[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row].venue.getVenueAddress()
         
+        if (self.events[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row].numberSongs == 0) {
+            print(self.events[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row].numberSongs)
+            cell.titleLabel.textColor = UIColor().setlistUnavailable()
+            cell.dayLabel.textColor = UIColor().setlistUnavailable()
+            cell.addressLabel.textColor = UIColor().setlistUnavailable()
+        } else {
+            cell.titleLabel.textColor = UIColor.black
+            cell.dayLabel.textColor = UIColor.black
+            cell.addressLabel.textColor = UIColor.black
+        }
+        
         return cell
     }
     
@@ -113,6 +147,7 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
         print(event.sets.first?.song.first?.name)
         
         performSegue(withIdentifier: "openSetlist", sender: event)
+        self.artistEvents.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: - Table view section
@@ -126,7 +161,7 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
     
     // Mark: - Effect sur la tableview lors du scroll
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        if (self.lastContentOffset != 0  && tableViewEffetInsertRow) {
+        if (self.lastContentOffset != 0 && tableViewEffetInsertRow) {
             view.alpha = 0
             
             var valueEffect:CGFloat = 0

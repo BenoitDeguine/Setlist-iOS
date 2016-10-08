@@ -19,9 +19,9 @@ class AddArtistViewController: UIViewController {
     
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var activityLoadingButton: UIActivityIndicatorView!
     
     @IBOutlet weak var labelLoading: UILabel!
-    @IBOutlet weak var activityLoader: UIActivityIndicatorView!
     
     var myArtist:Artist!
     
@@ -63,15 +63,27 @@ class AddArtistViewController: UIViewController {
         self.addButton.layer.borderWidth = 1
         self.addButton.setTitle(String(format: NSLocalizedString("add_artist_to_library_yes", comment: "Ajout de l'artist")), for: UIControlState())
         
-        self.labelLoading.textColor = UIColor().buttonColor()
-        self.labelLoading.text = NSLocalizedString("add_artist_loading_image", comment: "Chargement de l'image")
-        self.activityLoader.tintColor = UIColor().buttonColor()
+        self.activityLoadingButton.color = UIColor().mainColor()
+        self.loading()
         
         UIView.animate(withDuration: 1, animations: {
             self.backgroundView.alpha = 1.0
         })
     }
     
+    
+    func loading() {
+        self.labelLoading.textColor = UIColor().buttonColor()
+        self.labelLoading.text = NSLocalizedString("add_artist_loading_image", comment: "Chargement de l'image")
+        self.addButton.isHidden = true
+        self.activityLoadingButton.isHidden = false
+    }
+    
+    func endLoading() {
+                self.labelLoading.isHidden = true
+        self.addButton.isHidden = false
+        self.activityLoadingButton.isHidden = true
+    }
     
     //MARK: - Core Data
     func searchArtistImage() {
@@ -85,16 +97,13 @@ class AddArtistViewController: UIViewController {
             Alamofire.request(url, method: .get).responseJSON { response in
                 switch response.result {
                 case .success:
-                   
-                    self.labelLoading.isHidden = true
-                    self.activityLoader.isHidden = true
+                    
                     let response = response.result.value as! NSDictionary
                     let res = response.object(forKey: "artists")! as! NSDictionary
                     let items = res.object(forKey: "items")! as! NSArray
                     
                     // S'il y a un résultat, alors on enregistre
                     if (items.count > 0) {
-                        
                         var indexKey:Int = 0
                         
                         // Le premier résultat pour "Julia Stone" est "Angus et Julia Stone". On va vérifier dans les résultats si l'artiste "Julia Stone" n'existe pas, sinon on prends le premier
@@ -104,11 +113,10 @@ class AddArtistViewController: UIViewController {
                                 let nameArtistFromSpotify:String = (artistFromSpotify as AnyObject).object(forKey: "name") as! String
                                 arrayName.append(nameArtistFromSpotify.lowercased())
                             }
- 
+                            
                             if let index = arrayName.index(of: self.myArtist.name.lowercased()) {
                                 indexKey = index
                             }
-    
                         }
                         
                         let images = (items[indexKey] as AnyObject)
@@ -117,21 +125,24 @@ class AddArtistViewController: UIViewController {
                         if (imagesArr.count > 0) {
                             self.myArtist.thumbnails = (imagesArr[0] as AnyObject).object(forKey: "url") as! String
                             
-                            DispatchQueue.global().async {
                                 if let url = NSURL(string: self.myArtist.thumbnails) {
-                                    DispatchQueue.main.async {
+                                    // Bounce back to the main thread to update the UI
+                               
                                         if let data = NSData(contentsOf: url as URL) {
                                             self.imageArtist.image = UIImage(data: data as Data)
+                                            self.endLoading()
                                         }
-                                    };
-                                }
+                                    
+                                
                                 self.imageArtist.image = self.myArtist.getImage()
                             }
                         } else {
-                            self.imageArtist.image = UIImage(named: "anonymousBand") 
+                            self.imageArtist.image = UIImage(named: "anonymousBand")
+                            self.endLoading()
                         }
                     } else {
                         self.imageArtist.image = UIImage(named: "anonymousBand")
+                        self.endLoading()
                     }
                 case .failure(let error):
                     print(error)
@@ -160,19 +171,8 @@ class AddArtistViewController: UIViewController {
         self.dismiss(animated: false, completion: {});
     }
     
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
