@@ -20,13 +20,13 @@
 		1449246C1D87D6AC001B1576 /* SetlistCellWithInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1449246A1D87D6AC001B1576 /* SetlistCellWithInfo.swift */; };
 		144B53C71D78270C0054E0C7 /* General.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144B53C61D78270C0054E0C7 /* General.swift */; };
 		144B53CA1D7867B20054E0C7 /* ArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144B53C91D7867B20054E0C7 /* ArtistCollectionViewCell.swift */; };
+		144B81901DA9770200E33FED /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 144B818F1DA9770200E33FED /* Alamofire.framework */; };
+		144B81951DA9A54D00E33FED /* GoogleAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144B81941DA9A54D00E33FED /* GoogleAnalytics.swift */; };
 		144C227F1D814D6500C17737 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144C227E1D814D6500C17737 /* UITableView.swift */; };
 		145555EE1D75868400377694 /* AddArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145555ED1D75868400377694 /* AddArtistViewController.swift */; };
 		145555FD1D76237C00377694 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 145555FA1D76237C00377694 /* Localizable.strings */; };
 		145C43761D83149A003A06A3 /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145C43751D83149A003A06A3 /* NSDate.swift */; };
 		145C43791D832135003A06A3 /* ShowSetlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145C43781D832135003A06A3 /* ShowSetlistViewController.swift */; };
-		145CA5851DA9696000CA0192 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 145CA5841DA9696000CA0192 /* Alamofire.framework */; };
-		145CA5871DA9696700CA0192 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 145CA5841DA9696000CA0192 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		145CA58A1DA96BF800CA0192 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 145CA5891DA96BF800CA0192 /* GoogleService-Info.plist */; };
 		145CA58C1DA96CBA00CA0192 /* SetlistCellTapeWithoutInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145CA58B1DA96CBA00CA0192 /* SetlistCellTapeWithoutInfo.swift */; };
 		146533151D6C5D7F002B4768 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146533141D6C5D7F002B4768 /* AppDelegate.swift */; };
@@ -47,20 +47,6 @@
 		DFCDC793E8B917FB12AE084D /* Pods_Setlist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4E7A2EAAD4A286C74AF932B /* Pods_Setlist.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		145CA5881DA9696800CA0192 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				145CA5871DA9696700CA0192 /* Alamofire.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		14064DB11D820AD000D858EB /* SectionTableViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionTableViewHeader.swift; path = Cell/SectionTableViewHeader.swift; sourceTree = "<group>"; };
 		140E24631D874537004034CE /* SetlistCellTape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetlistCellTape.swift; path = Cell/SetlistCellTape.swift; sourceTree = "<group>"; };
@@ -75,6 +61,9 @@
 		1449246A1D87D6AC001B1576 /* SetlistCellWithInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetlistCellWithInfo.swift; path = Cell/SetlistCellWithInfo.swift; sourceTree = "<group>"; };
 		144B53C61D78270C0054E0C7 /* General.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = General.swift; path = Constant/General.swift; sourceTree = "<group>"; };
 		144B53C91D7867B20054E0C7 /* ArtistCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistCollectionViewCell.swift; path = Cell/ArtistCollectionViewCell.swift; sourceTree = "<group>"; };
+		144B818F1DA9770200E33FED /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../ios-sdk/DerivedData/Setlist-btbqrafzfwmxkpaigzxvinoordzg/Build/Products/Debug-iphoneos/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
+		144B81931DA9790B00E33FED /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = SOURCE_ROOT; };
+		144B81941DA9A54D00E33FED /* GoogleAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoogleAnalytics.swift; path = Class/GoogleAnalytics.swift; sourceTree = "<group>"; };
 		144C227E1D814D6500C17737 /* UITableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITableView.swift; path = Extensions/UITableView.swift; sourceTree = "<group>"; };
 		145555ED1D75868400377694 /* AddArtistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddArtistViewController.swift; path = Controller/AddArtistViewController.swift; sourceTree = "<group>"; };
 		145555FB1D76237C00377694 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = setlist/internationalization/en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -84,6 +73,7 @@
 		145CA5841DA9696000CA0192 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../ios-sdk/DerivedData/Setlist-btbqrafzfwmxkpaigzxvinoordzg/Build/Products/Debug-iphonesimulator/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		145CA5891DA96BF800CA0192 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		145CA58B1DA96CBA00CA0192 /* SetlistCellTapeWithoutInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetlistCellTapeWithoutInfo.swift; sourceTree = "<group>"; };
+		145CA5911DA974E300CA0192 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		146533111D6C5D7F002B4768 /* Setlist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Setlist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		146533141D6C5D7F002B4768 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		146533191D6C5D7F002B4768 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -111,7 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				145CA5851DA9696000CA0192 /* Alamofire.framework in Frameworks */,
+				144B81901DA9770200E33FED /* Alamofire.framework in Frameworks */,
 				DFCDC793E8B917FB12AE084D /* Pods_Setlist.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -140,6 +130,7 @@
 		146533081D6C5D7F002B4768 = {
 			isa = PBXGroup;
 			children = (
+				145CA5911DA974E300CA0192 /* Alamofire.framework */,
 				146533131D6C5D7F002B4768 /* setlist */,
 				146533121D6C5D7F002B4768 /* Products */,
 				D4B26357357511432F2C36A8 /* Pods */,
@@ -170,6 +161,8 @@
 				146533231D6C5D7F002B4768 /* Info.plist */,
 				145CA5891DA96BF800CA0192 /* GoogleService-Info.plist */,
 				141D03691DA3D3FA004CA710 /* setlist.xcdatamodeld */,
+				144B81931DA9790B00E33FED /* Header.h */,
+				144B81941DA9A54D00E33FED /* GoogleAnalytics.swift */,
 			);
 			path = setlist;
 			sourceTree = "<group>";
@@ -287,6 +280,7 @@
 		B290296F72E943C8FAA9BE91 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				144B818F1DA9770200E33FED /* Alamofire.framework */,
 				145CA5841DA9696000CA0192 /* Alamofire.framework */,
 				E4E7A2EAAD4A286C74AF932B /* Pods_Setlist.framework */,
 			);
@@ -315,7 +309,6 @@
 				1465330F1D6C5D7F002B4768 /* Resources */,
 				AA9D12917C8FF71272C5EFD3 /* [CP] Embed Pods Frameworks */,
 				E75A043B42E3CCBC15A8AEB4 /* [CP] Copy Pods Resources */,
-				145CA5881DA9696800CA0192 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -454,6 +447,7 @@
 				1444B8041D84012D00C1CE6A /* String.swift in Sources */,
 				148DAC921D7C19A600DE3E8E /* Set.swift in Sources */,
 				141D036B1DA3D3FA004CA710 /* setlist.xcdatamodeld in Sources */,
+				144B81951DA9A54D00E33FED /* GoogleAnalytics.swift in Sources */,
 				14723A7C1D77845400A9BF97 /* UIImage.swift in Sources */,
 				148DAC8E1D7C14DD00DE3E8E /* Song.swift in Sources */,
 				1465335A1D6C99B7002B4768 /* Artist.swift in Sources */,
@@ -599,7 +593,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.benoitd.setlist;
 				PRODUCT_NAME = Setlist;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = Header.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -618,7 +612,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.benoitd.setlist;
 				PRODUCT_NAME = Setlist;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = Header.h;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
