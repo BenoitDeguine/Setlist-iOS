@@ -21,6 +21,6 @@ struct App {
     }
     
     struct Analytics {
-        static let id:String = ""
+        static let id:String = "UA-69259952-2"
     }
 }
