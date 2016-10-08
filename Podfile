@@ -4,5 +4,5 @@ use_frameworks!
 
 target 'Setlist' do
 	pod 'Alamofire', '~> 4.0'
-	pod 'GoogleAnalytics', '~> 3.17'
+	pod 'Google/Analytics'
 end
