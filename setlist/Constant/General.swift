@@ -19,4 +19,8 @@ struct App {
         static let setlistfm:String = "http://api.setlist.fm/rest/0.1/"
         static let musicbrainz:String = "http://musicbrainz.org/ws/2/"
     }
+    
+    struct Analytics {
+        static let id:String = ""
+    }
 }
