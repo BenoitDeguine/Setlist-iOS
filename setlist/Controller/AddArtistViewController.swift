@@ -71,6 +71,9 @@ class AddArtistViewController: UIViewController {
         })
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        GoogleAnalytics().sendScreenView(name: "Ajouter un artiste")
+    }
     
     func loading() {
         self.labelLoading.textColor = UIColor().buttonColor()

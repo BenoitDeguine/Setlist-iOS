@@ -53,6 +53,11 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        GoogleAnalytics().sendScreenView(name: "Rechercher un artiste")
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

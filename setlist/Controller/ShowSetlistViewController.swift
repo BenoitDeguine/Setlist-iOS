@@ -42,6 +42,10 @@ class ShowSetlistViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        GoogleAnalytics().sendScreenView(name: "Setlist d'un artiste")
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

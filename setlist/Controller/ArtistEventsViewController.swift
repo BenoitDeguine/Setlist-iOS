@@ -49,6 +49,10 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
         self.searchSetlist()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        GoogleAnalytics().sendScreenView(name: "Dates d'un artiste")
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

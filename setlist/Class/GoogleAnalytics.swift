@@ -8,6 +8,15 @@
 
 import UIKit
 
-class GoogleAnalytics: NSObject {
+class GoogleAnalytics {
 
+    func sendScreenView(name:String) {
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker?.set(kGAIScreenName, value: name)
+        
+        var builder = GAIDictionaryBuilder.createScreenView().build() as! [NSObject : AnyObject]
+        tracker?.send(builder)
+
+    }
+    
 }

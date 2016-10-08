@@ -32,6 +32,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.addNewArtist.tintColor = UIColor().buttonColor()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+       GoogleAnalytics().sendScreenView(name: "Mes artistes")
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         self.fetchAndSetResults()
         self.collection.reloadData()
