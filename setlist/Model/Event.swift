@@ -58,4 +58,8 @@ class Event {
         return self.date.substring(to: self.date.index(self.date.endIndex, offsetBy: -8))
     }
     
+    func getAnalyticsName()->String {
+       return String(self.date + " | " + self.id )
+    }
+    
 }
