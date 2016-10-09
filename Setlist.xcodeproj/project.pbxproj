@@ -127,6 +127,14 @@
 			name = Constant;
 			sourceTree = "<group>";
 		};
+		145778141DAA3FFB008ACB7E /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				144B81941DA9A54D00E33FED /* GoogleAnalytics.swift */,
+			);
+			name = Class;
+			sourceTree = "<group>";
+		};
 		146533081D6C5D7F002B4768 = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +159,7 @@
 			children = (
 				146533141D6C5D7F002B4768 /* AppDelegate.swift */,
 				145555FA1D76237C00377694 /* Localizable.strings */,
+				145778141DAA3FFB008ACB7E /* Class */,
 				144B53C51D7826D10054E0C7 /* Constant */,
 				1465332D1D6C5E14002B4768 /* Extention */,
 				1465332C1D6C5DF9002B4768 /* Model */,
@@ -162,7 +171,6 @@
 				145CA5891DA96BF800CA0192 /* GoogleService-Info.plist */,
 				141D03691DA3D3FA004CA710 /* setlist.xcdatamodeld */,
 				144B81931DA9790B00E33FED /* Header.h */,
-				144B81941DA9A54D00E33FED /* GoogleAnalytics.swift */,
 			);
 			path = setlist;
 			sourceTree = "<group>";

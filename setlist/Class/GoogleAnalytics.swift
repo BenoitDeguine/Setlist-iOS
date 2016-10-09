@@ -14,9 +14,19 @@ class GoogleAnalytics {
         let tracker = GAI.sharedInstance().defaultTracker
         tracker?.set(kGAIScreenName, value: name)
         
-        var builder = GAIDictionaryBuilder.createScreenView().build() as! [NSObject : AnyObject]
+        let builder = GAIDictionaryBuilder.createScreenView().build() as [NSObject : AnyObject]
         tracker?.send(builder)
 
+    }
+    
+    func trackAction(category:String, action:String, label:String = "") {
+        let tracker = GAI.sharedInstance().defaultTracker
+        let event = GAIDictionaryBuilder.createEvent(
+            withCategory: category,
+            action: action,
+            label: label,
+            value: nil).build()  as [NSObject : AnyObject]
+        tracker?.send(event)
     }
     
 }

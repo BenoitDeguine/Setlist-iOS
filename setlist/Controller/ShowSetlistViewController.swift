@@ -44,6 +44,7 @@ class ShowSetlistViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewWillAppear(_ animated: Bool) {
         GoogleAnalytics().sendScreenView(name: "Setlist d'un artiste")
+        GoogleAnalytics().trackAction(category: "SETLIST_ARTISTE", action: self.artist.name, label: self.event.getAnalyticsName())
     }
     
     override func didReceiveMemoryWarning() {

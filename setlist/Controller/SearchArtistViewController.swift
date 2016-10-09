@@ -55,6 +55,7 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
     
     override func viewWillAppear(_ animated: Bool) {
         GoogleAnalytics().sendScreenView(name: "Rechercher un artiste")
+        
     }
     
     
@@ -87,6 +88,8 @@ class SearchArtistViewController: UIViewController, UISearchBarDelegate, UITable
         self.activityLoader.isHidden = false
 
         var url:String = App.URL.musicbrainz + "artist/?query=artist:" + (searchBar.text?.trim())! as String + "*&fmt=json"
+        GoogleAnalytics().trackAction(category: "RECHERCHER_ARTISTE", action: "RECHERCHER", label: (searchBar.text?.trim())!)
+
         print(url)
         url = url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         

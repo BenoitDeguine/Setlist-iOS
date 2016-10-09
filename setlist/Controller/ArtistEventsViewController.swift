@@ -51,6 +51,7 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
     
     override func viewWillAppear(_ animated: Bool) {
         GoogleAnalytics().sendScreenView(name: "Dates d'un artiste")
+        GoogleAnalytics().trackAction(category: "VOIR_CONCERTS_ARTISTE", action: self.artist.name)
     }
     
     override func didReceiveMemoryWarning() {

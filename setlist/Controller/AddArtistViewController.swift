@@ -163,6 +163,8 @@ class AddArtistViewController: UIViewController {
         
         artistsService.create(artist: self.myArtist)
         
+        GoogleAnalytics().trackAction(category: "AJOUT_ARTISTE", action: self.myArtist.name)
+        
         self.closeViewController()
     }
     
