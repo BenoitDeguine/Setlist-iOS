@@ -101,5 +101,26 @@ class ArtistsService{
             return []
         }
     }
+    
+    func exist(mbid:String)->Bool {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+        let predicate = NSPredicate(format: "mbid LIKE %@", mbid)
+        fetchRequest.predicate = predicate
+        
+        do {
+            let results = try context.fetch(fetchRequest) as! [Artists]
 
+            if (results.count > 0) {
+                return true
+            } else {
+                return false
+            }
+        } catch let err as NSError {
+            print(err.debugDescription)
+            
+            return false
+        }
+        
+    }
+    
 }

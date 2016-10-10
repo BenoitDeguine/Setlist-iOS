@@ -27,7 +27,9 @@ class AddArtistViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.searchArtistImage()
+        
+        let context = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
+        let artistsService = ArtistsService(context: context)
         
         self.backgroundView.alpha = 0
         
@@ -65,6 +67,16 @@ class AddArtistViewController: UIViewController {
         
         self.activityLoadingButton.color = UIColor().mainColor()
         self.loading()
+        
+        if (!artistsService.exist(mbid: self.myArtist.mbid)) {
+            self.searchArtistImage()
+        } else {
+            self.textArtist.text = String(format: NSLocalizedString("add_artist_already_exist", comment: ""))
+            self.textArtist.textColor = UIColor.red
+            self.imageArtist.image = UIImage().getImageFromName(myArtist.mbid)
+            self.labelLoading.isHidden = true
+            self.activityLoadingButton.isHidden = true
+        }
         
         UIView.animate(withDuration: 1, animations: {
             self.backgroundView.alpha = 1.0
