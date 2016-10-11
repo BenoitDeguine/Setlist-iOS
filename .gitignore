@@ -9,6 +9,10 @@
 build/
 DerivedData/
 
+
+## Google Analytics
+GoogleService-Info.plist
+
 ## Various settings
 *.pbxuser
 !default.pbxuser
@@ -37,6 +41,3 @@ MyPlayground.playground
 ## PODS
 Pods/
 Podfile.lock
-
-## Google Analytics
-GoogleService-Info.plist
