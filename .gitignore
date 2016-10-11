@@ -37,3 +37,6 @@ MyPlayground.playground
 ## PODS
 Pods/
 Podfile.lock
+
+## Google Analytics
+GoogleService-Info.plist
