@@ -173,9 +173,11 @@ class AddArtistViewController: UIViewController {
         let context = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
         let artistsService = ArtistsService(context: context)
         
-        artistsService.create(artist: self.myArtist)
+        let resArtiste = artistsService.create(artist: self.myArtist)
         
-        GoogleAnalytics().trackAction(category: "AJOUT_ARTISTE", action: self.myArtist.name)
+        if (resArtiste) {
+            GoogleAnalytics().trackAction(category: "AJOUT_ARTISTE", action: self.myArtist.name)
+        }
         
         self.closeViewController()
     }
