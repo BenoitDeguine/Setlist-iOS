@@ -27,7 +27,6 @@ xcuserdata/
 
 ## Librairies
 Alamofire.xcodeproj
-NVActivityIndicatorView.xcodeproj
 
 ## Playground
 MyPlayground.playground
@@ -37,3 +36,4 @@ MyPlayground.playground
 
 ## PODS
 Pods/
+Podfile.lock
