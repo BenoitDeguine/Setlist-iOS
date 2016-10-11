@@ -9,9 +9,12 @@
 build/
 DerivedData/
 
-
 ## Google Analytics
 GoogleService-Info.plist
+
+## PODS
+Pods/
+Podfile.lock
 
 ## Various settings
 *.pbxuser
@@ -38,6 +41,4 @@ MyPlayground.playground
 ## Autres
 .README.md.swp
 
-## PODS
-Pods/
-Podfile.lock
+
