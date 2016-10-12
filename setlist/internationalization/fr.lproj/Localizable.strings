@@ -17,7 +17,8 @@
 "add_artist_to_library" = "Voulez-vous ajouter %@ à vos artistes ?";
 "add_artist_to_library_yes" = "Ajouter";
 "add_artist_to_library_no" = "Fermer";
-"add_artist_loading_image" = "Chargement de l'image....";
+"add_artist_loading_image" = "Chargement de l'image...";
+"add_artist_already_exist" = "Vous avez déjà ajouté cet artiste.";
 
 // Mark: - Dates d'un artiste
 "venue_unknown" = "Venue inconnue";
@@ -25,3 +26,6 @@
 //Mark: - Obtenir les dernières setlists
 "set_last" = "Récupération des dernières dates de %@.";
 "set_last_none" = "Aucune date récente \n:(";
+
+//Mark: - Obtenir les dernières setlists
+"set_not_available" = "La setlist n'est pas encore disponible \n:(";
