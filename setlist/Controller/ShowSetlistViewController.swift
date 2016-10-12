@@ -16,6 +16,7 @@ class ShowSetlistViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBOutlet weak var imageClose: UIImageView!
     @IBOutlet weak var tableViewSetlist: UITableView!
+    @IBOutlet weak var label: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +41,17 @@ class ShowSetlistViewController: UIViewController, UITableViewDelegate, UITableV
                 }
             }
         }
+        
+        if (self.event.numberSongs == 0) {
+            self.tableViewSetlist.isHidden = true
+            self.label.isHidden = false
+            self.label.text = String(format: NSLocalizedString("set_not_available", comment: "Setlist non disponible"))
+            self.label.textColor = UIColor().buttonColor()
+        } else {
+            self.label.isHidden = true
+             self.tableViewSetlist.isHidden = false
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

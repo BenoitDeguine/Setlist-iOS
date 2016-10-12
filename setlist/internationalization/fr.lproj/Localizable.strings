@@ -25,7 +25,7 @@
 
 //Mark: - Obtenir les dernières setlists
 "set_last" = "Récupération des dernières dates de %@.";
-"set_last_none" = "Aucune date récente \n:(";
+"set_last_none" = "Aucune date récente \n😦";
 
 //Mark: - Obtenir les dernières setlists
-"set_not_available" = "La setlist n'est pas encore disponible \n:(";
+"set_not_available" = "La setlist n'est pas encore disponible \n😦";
