@@ -37,8 +37,11 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
         self.artistEvents.dataSource = self
         
         self.artistEvents.isHidden = true
-        
         self.navigationController?.navigationBar.setBottomBorderColor(UIColor().mainColor(), height: 1)
+        
+        // Bouton pour supprimer l'artiste
+       /* let rightButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteArtist))
+        self.navigationItem.rightBarButtonItem = rightButton*/
         
         self.view.backgroundColor = UIColor().backgroundColor()
         self.navigationController!.navigationBar.tintColor = UIColor.white
@@ -48,6 +51,8 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
         
         self.searchSetlist()
     }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         GoogleAnalytics().sendScreenView(name: "Dates d'un artiste")
@@ -277,4 +282,8 @@ class ArtistEventsViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
+    
+    /*func deleteArtist() {
+        
+    }*/
 }

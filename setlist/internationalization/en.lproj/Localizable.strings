@@ -6,9 +6,26 @@
   Copyright © 2016 Benoit Deguine. All rights reserved.
 */
 
-//TODO: Faire les traductions
+//Mark: - Mes artistes
+"my_artists" = "My artists";
+"my_artists_empty" = "You have not added any artist yet.\n\nPlease click on \"+\" at the top-right corner to start.";
 
-"add_artist_to_library" = "Voulez-vous ajouter à vos artistes ?";
+//Mark: - Ajout d'un artiste
+"add_artist_zero_result" = "No artist found.";
+"add_artist_search_pending" = "Loading...";
+"add_artist_placeholder" = "Look for an artist";
+"add_artist_to_library" = "Do you want to add %@ to your artists ?";
 "add_artist_to_library_yes" = "Add";
 "add_artist_to_library_no" = "Close";
-"venue_unknown" = "Unknown Venue";
+"add_artist_loading_image" = "Loading of the image...";
+"add_artist_already_exist" = "You have already added this artist.";
+
+// Mark: - Dates d'un artiste
+"venue_unknown" = "Unknown venue";
+
+//Mark: - Obtenir les dernières setlists
+"set_last" = "Retrieving the last shows of %@.";
+"set_last_none" = "No new show \n😦";
+
+//Mark: - Obtenir les dernières setlists
+"set_not_available" = "This setlist is not available yet \n😦";
