@@ -50,7 +50,7 @@ class Event {
     }
     
     func getDateMMYYYY()->String {
-        return String(self.date.characters.dropFirst().dropFirst().dropFirst())
+        return String(self.date.characters.dropFirst(3))
     }
     
     func getDateDD()->String {
